@@ -1,0 +1,2 @@
+# gomoku
+Nice README
