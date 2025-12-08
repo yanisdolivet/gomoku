@@ -1,0 +1,18 @@
+# Compiled object files
+*.o
+*.obj
+
+# Executable files
+pbrain-gomoku-ai
+
+# Tests
+unit_tests
+*.dSYM
+*.gcda
+*.gcno
+
+# Documentation
+docs_output/
+documentation/build/
+documentation/.docusaurus/
+node_modules/

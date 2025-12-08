@@ -1,0 +1,33 @@
+
+name: Module - Linting
+on: workflow_call
+
+jobs:
+  check_commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+      - run: npm install --save-dev @commitlint/cli
+
+      - name: Validate PR commits
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+      - name: Validate PR Title
+        if: github.event_name == 'pull_request'
+        run: echo "${{ github.event.pull_request.title }}" | npx commitlint
+
+  lint_cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cppcheck
+        run: sudo apt-get update && sudo apt-get install -y cppcheck
+
+      - name: Run cppcheck
+        run: cppcheck --enable=all --suppress=missingIncludeSystem --error-exitcode=1 -I ./include src/

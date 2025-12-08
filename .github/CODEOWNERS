@@ -1,0 +1,9 @@
+# Default, no global assignment to avoid spamming everyone
+# But we can define experts per folder
+
+# Configuration CI/CD
+.github/      @enzogagg
+Makefile      @enzogagg
+
+# Scripts
+scripts/      @enzogagg

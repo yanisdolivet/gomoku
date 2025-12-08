@@ -1,0 +1,33 @@
+name: Module - Build & Test
+on:
+  workflow_call:
+    inputs:
+      executable_name: { required: true, type: string }
+
+jobs:
+  build_and_check:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check useless files
+        run: find . -name "*.o" -o -name "*.a" -delete
+      - name: Build
+        run: make
+      - name: Check Binary
+        run: |
+          if [ ! -f "./${{ inputs.executable_name }}" ]; then exit 1; fi
+      - name: Check Clean
+        run: |
+          make clean
+          make fclean
+          if [ -f "./${{ inputs.executable_name }}" ]; then exit 1; fi
+
+  run_tests:
+    needs: build_and_check
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit Tests
+        run: make tests_run

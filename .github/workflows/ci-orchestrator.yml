@@ -1,0 +1,32 @@
+# This file is a workflow file for GitHub Actions
+# It is used to define the CI/CD pipeline for the project
+# It will be use to call all modules workflows
+
+name: GLaDOS Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  # 1. Linting
+  call-lint:
+    uses: ./.github/workflows/linting.yml
+
+  # 2. Build & Test
+  call-tests:
+    needs: call-lint
+    uses: ./.github/workflows/build-and-test.yml
+    with:
+      executable_name: pbrain-gomoku-ai
+
+  # 3. Mirroring (Main only)
+  call-mirror:
+    needs: call-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/mirroring.yml
+    secrets: inherit
+
+  # 4. Documentation (Main only)
+  call-docs:
+    needs: call-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/documentation.yml
