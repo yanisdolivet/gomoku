@@ -16,3 +16,6 @@ docs_output/
 documentation/build/
 documentation/.docusaurus/
 node_modules/
+
+# Logs
+*.log
