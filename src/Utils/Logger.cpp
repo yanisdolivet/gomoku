@@ -7,6 +7,12 @@
 
 #include "Logger.hpp"
 
+Logger::~Logger() {
+  if (isLogFileOpen()) {
+    closeLogFile();
+  }
+}
+
 void Logger::initLogger() {
   _logFile.open("debug.log", std::ios::out | std::ios::trunc);
 }
@@ -15,11 +21,12 @@ void Logger::addLog(const std::string &message) {
   if (!_logFile.is_open()) {
     return;
   }
-  time_t now = time(0);
-  char *dt = ctime(&now);
-  if (dt) {
-    dt[strlen(dt) - 1] = '\0';
-    _logFile << "[" << dt << "] " << message << std::endl;
+  std::time_t now = std::time(nullptr);
+  std::tm *tm_now = std::localtime(&now);
+  char buffer[32];
+
+  if (std::strftime(buffer, sizeof(buffer), "%a %b %d %H:%M:%S %Y", tm_now)) {
+    _logFile << "[" << buffer << "] " << message << std::endl;
   }
 }
 

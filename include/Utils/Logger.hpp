@@ -6,9 +6,10 @@
 */
 
 #pragma once
+#include <cstring>
 #include <ctime>
 #include <fstream>
-#include <cstring>
+#include <string>
 
 /**
  * @brief Logger utility for Gomoku
@@ -20,7 +21,7 @@
 class Logger {
 public:
   Logger() = default;
-  ~Logger() = default;
+  ~Logger();
 
   void initLogger();
 
