@@ -7,16 +7,28 @@
 
 #include "Logger.hpp"
 
+/**
+ * @brief Destroy the Logger:: Logger object
+ *
+ */
 Logger::~Logger() {
   if (isLogFileOpen()) {
     closeLogFile();
   }
 }
 
+/**
+ * @brief Initialize the logger
+ */
 void Logger::initLogger() {
   _logFile.open("debug.log", std::ios::out | std::ios::trunc);
 }
 
+/**
+ * @brief Add a log message to the log file
+ *
+ * @param message log to print in log file
+ */
 void Logger::addLog(const std::string &message) {
   if (!_logFile.is_open()) {
     return;
@@ -30,8 +42,17 @@ void Logger::addLog(const std::string &message) {
   }
 }
 
+/**
+ * @brief Check if the log file is open
+ *
+ * @return true if open
+ * @return false if not open
+ */
 bool Logger::isLogFileOpen() const { return _logFile.is_open(); }
 
+/**
+ * @brief Close the log file
+ */
 void Logger::closeLogFile() {
   if (_logFile.is_open()) {
     _logFile.close();
