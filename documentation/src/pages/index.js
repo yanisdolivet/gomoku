@@ -8,10 +8,11 @@ import styles from '../css/index.module.css';
 function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
     return (
-        <header className={clsx('hero hero--primary', styles.heroBanner)} style={{ backgroundColor: '#1b1b1d', backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+
+        <header className={clsx('hero hero--primary', styles.heroBanner)}>
             <div className="container">
-                <h1 className="hero__title" style={{ fontSize: '4rem', fontWeight: 'bold' }}>{siteConfig.title}</h1>
-                <p className="hero__subtitle" style={{ fontSize: '1.5rem' }}>{siteConfig.tagline}</p>
+                <h1 className="hero__title">{siteConfig.title}</h1>
+                <p className="hero__subtitle">{siteConfig.tagline}</p>
                 <div className={styles.buttons}>
                     <Link
                         className="button button--secondary button--lg"
@@ -61,7 +62,7 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#f5f6f7', color: '#1b1b1d' }}>
+                <div className={styles.ctaSection}>
                     <h2>Ready to challenge the AI?</h2>
                     <p>Check out the installation guide to get started.</p>
                 </div>

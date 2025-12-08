@@ -9,7 +9,7 @@ const darkCodeTheme = themes.dracula;
 const config = {
     title: 'Gomoku AI',
     tagline: 'Advanced AI for the Gomoku Game',
-    favicon: 'img/favicon.ico',
+    favicon: 'img/favicon.svg',
 
     url: 'https://yanisdolivet.github.io', // Your GitHub Pages base URL
     // For local development use '/' and for GitHub Pages use '/gomoku/'.
@@ -54,7 +54,7 @@ const config = {
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             // Social image
-            image: 'img/logo.png',
+            image: 'img/logo.svg',
             announcementBar: {
                 id: 'welcome',
                 content:
@@ -64,10 +64,10 @@ const config = {
                 isCloseable: true,
             },
             navbar: {
-                title: 'Gomoku AI',
+                title: '',
                 logo: {
                     alt: 'Gomoku AI Logo',
-                    src: 'img/logo.png',
+                    src: 'img/logo.svg',
                 },
                 items: [
                     // User Manual

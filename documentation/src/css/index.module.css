@@ -1,44 +1,84 @@
+/* Hero Banner - Solid, reliable styling */
 .heroBanner {
     padding: 4rem 0;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    /* Light mode: Very light indigo tint */
+    background-color: #f5f3ff;
+    color: #1f2937;
+    /* Dark Gray text */
 }
 
-@media screen and (max-width: 996px) {
-    .heroBanner {
-        padding: 2rem;
-    }
+/* Dark mode hero override */
+:global([data-theme='dark']) .heroBanner {
+    background-color: #1e293b;
+    /* Slate 800 */
+    color: #f8fafc;
+    /* White/Slate 50 text */
+}
+
+.heroBanner h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.heroBanner p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .buttons {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
 }
 
+/* Feature Cards - Solid Backgrounds */
 .feature {
     display: flex;
-    align-items: center;
-    padding: 2rem;
-    border-radius: 8px;
-    background: var(--ifm-background-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    height: 100%;
-    text-align: center;
     flex-direction: column;
-    border-top: 4px solid var(--ifm-color-primary);
-    /* Add blue accent */
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
 }
 
-.feature:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(36, 93, 136, 0.2);
-    /* Blue-ish shadow */
+:global([data-theme='dark']) .feature {
+    background-color: #334155;
+    /* Slate 700 */
+    border-color: #475569;
+    color: #f8fafc;
 }
 
 .feature h3 {
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
     color: var(--ifm-color-primary);
+}
+
+:global([data-theme='dark']) .feature h3 {
+    color: var(--ifm-color-primary-light);
+}
+
+/* CTA Section */
+.ctaSection {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
+
+:global([data-theme='dark']) .ctaSection {
+    background-color: #0f172a;
+    border-top: 1px solid #1e293b;
+}
+
+.ctaSection h2 {
+    margin-bottom: 1rem;
 }
