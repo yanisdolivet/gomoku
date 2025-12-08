@@ -6,6 +6,8 @@
 */
 
 #pragma once
+#include <fstream>
+#include <time.h>
 
 /**
  * @brief Logger utility for Gomoku
@@ -13,3 +15,17 @@
  * monitoring the Gomoku application.
  * Provides methods to log messages in log files.
  */
+
+class Logger {
+public:
+
+  Logger() = default;
+  ~Logger() = default;
+
+  void initLogger();
+
+  void addLog(const std::string &message);
+
+private:
+  std::ofstream _logFile;
+};
