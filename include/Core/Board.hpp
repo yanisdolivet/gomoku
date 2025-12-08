@@ -27,9 +27,9 @@ public:
 
   void resetBoard();
 
-  bool makeMove(int x, int y, int player);
-
   bool isMoveValid(int x, int y) const;
+
+  bool makeMove(int x, int y, int player);
 
   int checkWinner() const;
 
@@ -46,5 +46,5 @@ private:
   std::bitset<AREA> _FullMask;  // Full board mask for the vertical checks
 
   bool fiveAlligned(const std::bitset<AREA> &board, int shift,
-                     const std::bitset<AREA> &mask) const;
+                    const std::bitset<AREA> &mask) const;
 };

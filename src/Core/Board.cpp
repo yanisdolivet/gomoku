@@ -11,52 +11,25 @@
  * @brief Construct a new Board:: Board object
  *
  */
-Board::Board()
-{
-    resetBoard();
-    _LeftMask.set();
-    _RightMask.set();
-    _FullMask.set();
+Board::Board() {
+  resetBoard();
+  _LeftMask.set();
+  _RightMask.set();
+  _FullMask.set();
 
-    for (int i = 0; i < SIZE; ++i) {
-        _LeftMask.reset(i * SIZE);
-        _RightMask.reset(i * SIZE + (SIZE - 1));
-    }
+  for (int i = 0; i < SIZE; ++i) {
+    _LeftMask.reset(i * SIZE);
+    _RightMask.reset(i * SIZE + (SIZE - 1));
+  }
 }
 
 /**
  * @brief Reset the board to its initial state
  *
  */
-void Board::resetBoard()
-{
-    _myBoard.reset();
-    _opponentBoard.reset();
-}
-
-/**
- * @brief Make a move on the board
- *
- * @param x X coordinate
- * @param y Y coordinate
- * @param player Player number (1 or 2)
- */
-bool Board::makeMove(int x, int y, int player)
-{
-    if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
-        return false;
-    }
-    int index = y * SIZE + x;
-
-    if (_myBoard.test(index) || _opponentBoard.test(index)) {
-        return false;
-    }
-    if (player == 1) {
-        _myBoard.set(index);
-    } else if (player == 2) {
-        _opponentBoard.set(index);
-    }
-    return true;
+void Board::resetBoard() {
+  _myBoard.reset();
+  _opponentBoard.reset();
 }
 
 /**
@@ -67,34 +40,56 @@ bool Board::makeMove(int x, int y, int player)
  * @return true if valid
  * @return false if not valid
  */
-bool Board::isMoveValid(int x, int y) const
-{
-    if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
-        return false;
-    }
-    int index = y * SIZE + x;
+bool Board::isMoveValid(int x, int y) const {
+  if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
+    return false;
+  }
+  int index = y * SIZE + x;
 
-    return !(_myBoard.test(index) || _opponentBoard.test(index));
+  return !(_myBoard.test(index) || _opponentBoard.test(index));
+}
+
+/**
+ * @brief Make a move on the board
+ *
+ * @param x X coordinate
+ * @param y Y coordinate
+ * @param player Player number (1 or 2)
+ */
+bool Board::makeMove(int x, int y, int player) {
+  if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
+    return false;
+  }
+  int index = y * SIZE + x;
+
+  if (!isMoveValid(x, y)) {
+    return false;
+  }
+  if (player == 1) {
+    _myBoard.set(index);
+  } else if (player == 2) {
+    _opponentBoard.set(index);
+  }
+  return true;
 }
 
 inline bool Board::fiveAlligned(const std::bitset<AREA> &board, int shift,
-                              const std::bitset<AREA> &mask) const
-{
-    std::bitset<AREA> tmp;
+                                const std::bitset<AREA> &mask) const {
+  std::bitset<AREA> tmp;
 
-    // Isolate pair of stones
-    tmp = board & (board >> shift) & mask;
+  // Isolate pair of stones
+  tmp = board & (board >> shift) & mask;
 
-    // Isolate triplet of stones
-    tmp = tmp & (tmp >> (shift)) & mask;
+  // Isolate triplet of stones
+  tmp = tmp & (tmp >> (shift)) & mask;
 
-    // Isolate quadruplet of stones
-    tmp = tmp & (tmp >> (shift)) & mask;
+  // Isolate quadruplet of stones
+  tmp = tmp & (tmp >> (shift)) & mask;
 
-    // Isolate quintuplet of stones
-    tmp = tmp & (tmp >> (shift)) & mask;
+  // Isolate quintuplet of stones
+  tmp = tmp & (tmp >> (shift)) & mask;
 
-    return tmp.any();
+  return tmp.any();
 }
 
 /**
@@ -102,35 +97,34 @@ inline bool Board::fiveAlligned(const std::bitset<AREA> &board, int shift,
  *
  * @return int Player number (1 or 2) if there's a winner, 0 otherwise
  */
-int Board::checkWinner() const
-{
-    // Check for both players
-    const std::bitset<AREA>* players[2] = {&_myBoard, &_opponentBoard};
+int Board::checkWinner() const {
+  // Check for both players
+  const std::bitset<AREA> *players[2] = {&_myBoard, &_opponentBoard};
 
-    for (int p = 0; p < 2; ++p) {
-        const std::bitset<AREA> &board = *players[p];
+  for (int p = 0; p < 2; ++p) {
+    const std::bitset<AREA> &board = *players[p];
 
-        // Check horizontal (shift 1)
-        if (fiveAlligned(board, 1, _FullMask)) {
-            return p + 1;
-        }
-
-        // Check vertical (shift 20)
-        if (fiveAlligned(board, SIZE, _FullMask)) {
-            return p + 1;
-        }
-
-        // Check diagonal (shift 21)
-        if (fiveAlligned(board, SIZE + 1, _RightMask)) {
-            return p + 1;
-        }
-
-        // Check diagonal (shift 19)
-        if (fiveAlligned(board, SIZE - 1, _LeftMask)) {
-            return p + 1;
-        }
+    // Check horizontal (shift 1)
+    if (fiveAlligned(board, 1, _FullMask)) {
+      return p + 1;
     }
-    return 0;
+
+    // Check vertical (shift 20)
+    if (fiveAlligned(board, SIZE, _FullMask)) {
+      return p + 1;
+    }
+
+    // Check diagonal (shift 21)
+    if (fiveAlligned(board, SIZE + 1, _RightMask)) {
+      return p + 1;
+    }
+
+    // Check diagonal (shift 19)
+    if (fiveAlligned(board, SIZE - 1, _LeftMask)) {
+      return p + 1;
+    }
+  }
+  return 0;
 }
 
 /**
@@ -138,17 +132,13 @@ int Board::checkWinner() const
  *
  * @return const std::bitset<AREA> &
  */
-const std::bitset<AREA> &Board::getMyBoard() const
-{
-    return _myBoard;
-}
+const std::bitset<AREA> &Board::getMyBoard() const { return _myBoard; }
 
 /**
  * @brief Get opponent's board bitset
  *
  * @return const std::bitset<AREA> &
  */
-const std::bitset<AREA> &Board::getOpponentBoard() const
-{
-    return _opponentBoard;
+const std::bitset<AREA> &Board::getOpponentBoard() const {
+  return _opponentBoard;
 }
