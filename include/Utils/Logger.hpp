@@ -6,8 +6,9 @@
 */
 
 #pragma once
+#include <ctime>
 #include <fstream>
-#include <time.h>
+#include <string>
 
 /**
  * @brief Logger utility for Gomoku
