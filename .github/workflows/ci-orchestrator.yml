@@ -6,6 +6,10 @@ name: GLaDOS Pipeline
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
+
 jobs:
   # 1. Linting
   call-lint:
