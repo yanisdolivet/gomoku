@@ -22,7 +22,7 @@ void Logger::addLog(const std::string &message) {
     return;
   }
   std::time_t now = std::time(nullptr);
-  std::tm *tm_now = std::localtime(&now);
+  const std::tm *tm_now = std::localtime(&now);
   char buffer[32];
 
   if (std::strftime(buffer, sizeof(buffer), "%a %b %d %H:%M:%S %Y", tm_now)) {
