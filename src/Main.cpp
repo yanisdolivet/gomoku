@@ -5,10 +5,13 @@
 ** Main
 */
 
+#include "Logger.hpp"
 #include <stdio.h>
 
-int main(void)
-{
-    printf("Hello, Gomoku!\n");
-    return 0;
+int main(void) {
+  Logger logger;
+  logger.initLogger();
+  logger.addLog("Application started");
+  printf("Hello, Gomoku!\n");
+  return 0;
 }

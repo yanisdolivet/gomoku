@@ -4,12 +4,6 @@ title: Introduction
 sidebar_position: 1
 ---
 
----
-id: Introduction
-title: Introduction
-sidebar_position: 1
----
-
 # Introduction to **Gomoku AI**
 
 Welcome to the documentation for the Gomoku AI project.
