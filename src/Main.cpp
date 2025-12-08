@@ -5,13 +5,18 @@
 ** Main
 */
 
+#include "Board.hpp"
 #include "Logger.hpp"
 #include <stdio.h>
 
-int main(void) {
+int main() {
   Logger logger;
   logger.initLogger();
-  logger.addLog("Application started");
-  printf("Hello, Gomoku!\n");
+  logger.addLog("Gomoku game started");
+
+  Board board;
+
+  logger.addLog("Gomoku game ended");
+  logger.closeLogFile();
   return 0;
 }
