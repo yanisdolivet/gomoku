@@ -2,7 +2,7 @@
 # It is used to define the CI/CD pipeline for the project
 # It will be use to call all modules workflows
 
-name: GLaDOS Pipeline
+name: Gomoku Pipeline
 
 on: [push, pull_request]
 
