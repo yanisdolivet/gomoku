@@ -12,13 +12,21 @@ void Logger::initLogger() {
 }
 
 void Logger::addLog(const std::string &message) {
-    if (!_logFile.is_open()) {
-        return;
-    }
-    time_t now = time(0);
-    char* dt = ctime(&now);
-    if (dt) {
-        dt[strlen(dt) - 1] = '\0';
-        _logFile << "[" << dt << "] " << message << std::endl;
-    }
+  if (!_logFile.is_open()) {
+    return;
+  }
+  time_t now = time(0);
+  char *dt = ctime(&now);
+  if (dt) {
+    dt[strlen(dt) - 1] = '\0';
+    _logFile << "[" << dt << "] " << message << std::endl;
+  }
+}
+
+bool Logger::isLogFileOpen() const { return _logFile.is_open(); }
+
+void Logger::closeLogFile() {
+  if (_logFile.is_open()) {
+    _logFile.close();
+  }
 }

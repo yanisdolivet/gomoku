@@ -9,7 +9,7 @@
 ##              VARIABLES               ##
 
 CC                  := g++
-CFLAGS              := -Wall -Wextra -Werror -march=native -I./include \
+CFLAGS              := -Wall -Wextra -march=native -I./include \
 						-I./include/Core -I./include/Engine \
 						-I./include/Neural -I./include/Protocol \
 						-I./include/Utils

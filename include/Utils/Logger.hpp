@@ -18,13 +18,16 @@
 
 class Logger {
 public:
-
   Logger() = default;
   ~Logger() = default;
 
   void initLogger();
 
   void addLog(const std::string &message);
+
+  bool isLogFileOpen() const;
+
+  void closeLogFile();
 
 private:
   std::ofstream _logFile;
