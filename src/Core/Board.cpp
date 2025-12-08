@@ -73,8 +73,8 @@ bool Board::makeMove(int x, int y, int player) {
   return true;
 }
 
-inline bool Board::fiveAlligned(const std::bitset<AREA> &board, int shift,
-                                const std::bitset<AREA> &mask) const {
+inline bool Board::fiveAligned(const std::bitset<AREA> &board, int shift,
+                               const std::bitset<AREA> &mask) const {
   std::bitset<AREA> tmp;
 
   // Isolate pair of stones
@@ -105,22 +105,22 @@ int Board::checkWinner() const {
     const std::bitset<AREA> &board = *players[p];
 
     // Check horizontal (shift 1)
-    if (fiveAlligned(board, 1, _FullMask)) {
+    if (fiveAligned(board, 1, _FullMask)) {
       return p + 1;
     }
 
     // Check vertical (shift 20)
-    if (fiveAlligned(board, SIZE, _FullMask)) {
+    if (fiveAligned(board, SIZE, _FullMask)) {
       return p + 1;
     }
 
     // Check diagonal (shift 21)
-    if (fiveAlligned(board, SIZE + 1, _RightMask)) {
+    if (fiveAligned(board, SIZE + 1, _RightMask)) {
       return p + 1;
     }
 
     // Check diagonal (shift 19)
-    if (fiveAlligned(board, SIZE - 1, _LeftMask)) {
+    if (fiveAligned(board, SIZE - 1, _LeftMask)) {
       return p + 1;
     }
   }

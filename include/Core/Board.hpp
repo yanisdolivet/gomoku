@@ -45,6 +45,6 @@ private:
   std::bitset<AREA> _RightMask; // Mask on column 19, 39, 59, ...
   std::bitset<AREA> _FullMask;  // Full board mask for the vertical checks
 
-  bool fiveAlligned(const std::bitset<AREA> &board, int shift,
-                    const std::bitset<AREA> &mask) const;
+  bool fiveAligned(const std::bitset<AREA> &board, int shift,
+                   const std::bitset<AREA> &mask) const;
 };

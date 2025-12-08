@@ -9,7 +9,7 @@ sidebar_position: 2
 ## Bitset
 To optimise the project, we use bitset to store the board state and avoid using vectors or 2D arrays.
 The reason is that vectors and 2D arrays are not optimised for the minimax algorithm and can lead to performance issues.
-Bitset of int is 32 size more compact than vectors and 2D arrays of int. This is the reason why we use bitset in Board class.
+A bitset uses only 1 bit per position, whereas a vector or 2D array of int uses 32 bits (4 bytes) per position. This makes a bitset 32 times more space-efficient, which is why we use it in the Board class.
 
 ## Bitwise operations
 To optimise the project, we use bitwise operations to check for a winner. We need to optimise this function because it is call by the Monte Carlo Tree Search algorithm. Monte Carlo Tree Search search for the best move by simulating multiple games. If checkWin take only 10ms to check the winner, the Monte Carlo Tree Search can simule 1 000 000 games in 1 second. If checkWin take 1 millisecond to check the winner, the Monte Carlo Tree Search can simule 1 000 games in 1 second.
