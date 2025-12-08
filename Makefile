@@ -13,7 +13,6 @@ CFLAGS              := -Wall -Wextra -Werror -march=native -I./include \
 						-I./include/Core -I./include/Engine \
 						-I./include/Neural -I./include/Protocol \
 						-I./include/Utils
-						
 DFLAGS              := -g3
 TFLAGS				:= -lcriterion --coverage
 
@@ -27,7 +26,8 @@ TESTDIR             := tests
 
 
 SOURCES_FILES       := $(shell find $(SRCDIR) -name '*.cpp')
-OBJECTS_FILES       := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES_FILES))
+OBJECTS_FILES       := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,\
+						$(SOURCES_FILES))
 TEST_SOURCES        := $(filter-out $(SRCDIR)/main.cpp, $(SOURCES_FILES))
 TEST_OBJECTS        := $(shell find $(TESTDIR) -name '*.cpp')
 
