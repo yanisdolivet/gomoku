@@ -19,6 +19,7 @@ Bitwise is the ultimate optimisation for this project for 3 reasons:
 - No loop on runtime, all the loop are implemented in the hardware level
 - Register parallelism, the processor can execute multiple operations at once
 - Branchless, no if condition to check for a winner. This condition is not optimised by the processor. The instruction flux is linear, this is perfect for the processor.
+
 To add more optimisation on the bitwise operations, we use inline function. That reduce the function call overhead and improve the performance. In a optimised code function call makes loose many performance. That would be shameful for a project like this.
 
 
