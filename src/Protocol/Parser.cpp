@@ -81,7 +81,7 @@ void Parser::StartCommand(std::stringstream &args) {
   std::cout << "OK" << std::endl;
 }
 
-bool Parser::parseCoordinates(std::string &token, int &x, int &y) {
+bool Parser::parseCoordinates(const std::string &token, int &x, int &y) {
   size_t commaPos = token.find(',');
   if (commaPos == std::string::npos) {
     return false;

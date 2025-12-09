@@ -25,7 +25,7 @@
 
 class Parser {
 public:
-  Parser(Logger &logger);
+  explicit Parser(Logger &logger);
   ~Parser();
 
   void runParser();
@@ -46,7 +46,7 @@ private:
 
   void sendError(const std::string &message);
 
-  bool parseCoordinates(std::string &token, int &x, int &y);
+  bool parseCoordinates(const std::string &token, int &x, int &y);
 
   using CommandHandler = void (Parser::*)(std::stringstream &args);
 
