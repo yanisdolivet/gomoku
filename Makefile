@@ -64,6 +64,7 @@ clean:
 	@rm -f $(TEST_EXECUTABLE)
 	@rm -f *.gcno
 	@rm -f *.gcda
+	@rm -rf *.dSYM
 	@rm -f vgcore.*
 	@echo -e "$(RED)[✘] Objects and coverage files removed.$(RESET)"
 
@@ -90,5 +91,6 @@ tests_run:
 coverage: tests_run
 	@echo -e "$(CYAN)[➜] Generating code coverage report$(RESET)"
 	@gcovr --exclude $(TESTDIR)
+	@echo -e "$(GREEN)[✔] Code coverage report generated.$(RESET)"
 
 .PHONY: all clean fclean re tests_run coverage
