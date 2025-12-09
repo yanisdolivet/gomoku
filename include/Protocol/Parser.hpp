@@ -18,8 +18,8 @@
 
 /**
  * @brief Protocol Parser for Gomoku
- * @note This read the std::cin input and parse the commands for the Gomoku
- * game. It cut the input into tokens and call the corresponding functions to
+ * @note This reads the std::cin input and parse the commands for the Gomoku
+ * game. It cuts the input into tokens and call the corresponding functions to
  * handle each command.
  */
 

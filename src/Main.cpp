@@ -11,7 +11,7 @@
 /**
  * @brief Main function to start the Gomoku application
  *
- * @note Optimise I/O operations with std::ios_base::sync_with_stdio(false)
+ * @note Optimize I/O operations with std::ios_base::sync_with_stdio(false)
  * and std::cin.tie(NULL) for better performance during gameplay.
  */
 int main() {

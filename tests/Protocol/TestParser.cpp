@@ -223,7 +223,7 @@ Test(Parser, info_command) {
   parser.InfoCommand(ss);
 }
 
-Test(Parser, invaid_info_command_format, .init = redirect_all_std) {
+Test(Parser, invalid_info_command_format, .init = redirect_all_std) {
   Logger logger;
   logger.initLogger();
   Parser parser(logger);
