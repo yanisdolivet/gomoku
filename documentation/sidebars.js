@@ -15,6 +15,7 @@
 const sidebars = {
   tutorialSidebar: [
     'Introduction',
+    'Optimisation',
     'Ci-cd',
     'Doxygen',
   ],
