@@ -7,7 +7,32 @@
 
 #pragma once
 
+#include "../Neural/Network.hpp"
+#include "Node.hpp"
+
+#include <chrono>
+#include <iostream>
+#include <limits>
+#include <utility>
+
+#define DEFAULT_SECURITY_MS 350
+
 /**
  * @brief Monte Carlo Tree Search Engine for Gomoku
  * @note This class implements the MCTS algorithm for the Gomoku game.
  */
+
+class MCTS {
+public:
+  MCTS(Network &network);
+  ~MCTS() = default;
+
+  std::pair<int, int> findBestMove(const Board &board, int timeMs);
+
+private:
+  Network &_network;
+
+  Node *select(Node *node, Board &board);
+  void expand(Node *node, const Board &board);
+  void backpropagate(Node *node, float value);
+};
