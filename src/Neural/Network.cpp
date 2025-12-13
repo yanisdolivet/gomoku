@@ -10,21 +10,11 @@
 /**
  * @brief Construct a new Network:: Network object
  */
-Network::Network() {
-  _weights1 = Tensor(400, 128); // 400 input features, 128 neurons
-  _biases1 = Tensor(1, 128);    // 128 biases for the first layer
-
-  _weights2 = Tensor(128, 400); // 128 input features, 400 neurons
-  _biases2 = Tensor(1, 400);    // 400 biases for the second layer
-
-  _weightsPolicy = Tensor(128, 1); // 128 input features, 1 neuron
-  _biasesPolicy = Tensor(1, 1);    // 1 bias for the policy output layer
-
-  _inputBuffer = Tensor(1, 400);        // Input buffer for 400 features
-  _hiddenBuffer = Tensor(1, 128);       // Hidden layer buffer for 128
-  _policyLogitsBuffer = Tensor(1, 400); // Policy logits buffer for 400 outputs
-  _valueOutBuffer = Tensor(1, 1);       // Value output buffer for single
-
+Network::Network()
+    : _inputBuffer(1, 400), _hiddenBuffer(1, 128), _policyLogitsBuffer(1, 400),
+      _valueOutBuffer(1, 1), _weights1(400, 128), _biases1(1, 128),
+      _weights2(128, 400), _biases2(1, 400), _weightsPolicy(128, 1),
+      _biasesPolicy(1, 1) {
   auto initRandom = [](Tensor &t) {
     for (int i = 0; i < t.size(); ++i)
       t[i] = 0.001f * (rand() % 100 - 50);
@@ -111,11 +101,9 @@ void Network::denseLayer(const Tensor &input, const Tensor &weights,
  * With ReLU, the output is max(0, x)
  */
 void Network::relu(Tensor &tensor) {
-  for (float &value : tensor.values) {
-    if (value < 0.0f) {
-      value = 0.0f;
-    }
-  }
+  std::replace_if(
+      tensor.values.begin(), tensor.values.end(),
+      [](float val) { return val < 0.0f; }, 0.0f);
 }
 
 /**
@@ -125,21 +113,22 @@ void Network::relu(Tensor &tensor) {
  * The function are use to have the sum of all output equal to 1.
  */
 void Network::softmax(std::vector<float> &values) {
-  float maxVal = -1e9;
-  for (float val : values) {
-    if (val > maxVal) {
-      maxVal = val;
-    }
-  }
+  if (values.empty())
+    return;
+
+  float maxVal = *std::max_element(values.begin(), values.end());
   float sumExp = 0.0f;
-  for (float &val : values) {
-    val = std::exp(val - maxVal);
-    sumExp += val;
-  }
+
+  std::transform(values.begin(), values.end(), values.begin(),
+                 [&sumExp, maxVal](float val) {
+                   float expVal = std::exp(val - maxVal);
+                   sumExp += expVal;
+                   return expVal;
+                 });
+
   if (sumExp > 0.0f) {
-    for (float &val : values) {
-      val /= sumExp;
-    }
+    std::transform(values.begin(), values.end(), values.begin(),
+                   [sumExp](float val) { return val / sumExp; });
   }
 }
 

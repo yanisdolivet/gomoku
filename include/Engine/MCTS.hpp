@@ -24,7 +24,7 @@
 
 class MCTS {
 public:
-  MCTS(Network &network);
+  explicit MCTS(Network &network);
   ~MCTS() = default;
 
   std::pair<int, int> findBestMove(const Board &board, int timeMs);

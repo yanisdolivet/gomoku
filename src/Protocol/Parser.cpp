@@ -113,9 +113,9 @@ bool Parser::parseCoordinates(const std::string &token, int &x, int &y) {
  */
 void Parser::TurnCommand(std::stringstream &args) {
   std::string move;
-  int x = -1, y = -1;
 
   if (args >> move) {
+    int x = -1, y = -1;
     if (parseCoordinates(move, x, y)) {
       _gameBoard.makeMove(x, y, 2);
     } else {
