@@ -16,8 +16,8 @@
  *       more efficient than using a 2D array.
  */
 
-const int SIZE = 20;
-const int AREA = SIZE * SIZE;
+constexpr int SIZE = 20;
+constexpr int AREA = SIZE * SIZE;
 
 class Board {
 public:
