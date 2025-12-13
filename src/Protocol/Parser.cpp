@@ -41,7 +41,6 @@ Parser::~Parser() {
  * @brief Send an error message to the standard output
  */
 void Parser::sendError(const std::string &message) {
-  std::cout << "ERROR - " << message << std::endl;
   Logger::addLogGlobal("Sent error: " + message);
 }
 
