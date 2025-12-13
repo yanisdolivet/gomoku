@@ -16,9 +16,9 @@
  */
 
 struct Tensor {
-    std::vector<float> values;
-    int rows;
-    int cols;
+    std::vector<float> values; // 400 value for 20x20 board
+    int rows; // number of rows
+    int cols; // number of columns
 
     /**
      * @brief Default constructor for Tensor
