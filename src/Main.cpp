@@ -5,18 +5,32 @@
 ** Main
 */
 
-#include "Board.hpp"
 #include "Logger.hpp"
-#include <stdio.h>
+#include "Parser.hpp"
 
+/**
+ * @brief Main function to start the Gomoku application
+ *
+ * @note Optimize I/O operations with std::ios_base::sync_with_stdio(false)
+ * and std::cin.tie(NULL) for better performance during gameplay.
+ */
 int main() {
-  Logger logger;
-  logger.initLogger();
-  logger.addLog("Gomoku game started");
+  std::srand(static_cast<unsigned int>(std::time(nullptr)));
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  Board board;
+  Logger::getInstance().initLogger();
+  Logger::getInstance().addLog("Gomoku game started");
 
-  logger.addLog("Gomoku game ended");
-  logger.closeLogFile();
-  return 0;
+    try {
+        Parser parser;
+        parser.runParser();
+    } catch (const std::exception& e) {
+        Logger::getInstance().addLog("CRITICAL ERROR: " + std::string(e.what()));
+        Logger::getInstance().closeLogFile();
+        return 1;
+    }
+    Logger::getInstance().addLog("Gomoku game ended");
+    Logger::getInstance().closeLogFile();
+    return 0;
 }

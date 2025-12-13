@@ -8,6 +8,25 @@
 #include "Logger.hpp"
 
 /**
+ * @brief Access a global logger instance from anywhere
+ * @return Logger& global logger instance
+ */
+Logger &Logger::getInstance()
+{
+  static Logger instance;
+  return instance;
+}
+
+/**
+ * @brief Convenience static wrapper to add a log globally
+ * @param message log message
+ */
+void Logger::addLogGlobal(const std::string &message)
+{
+  Logger::getInstance().addLog(message);
+}
+
+/**
  * @brief Destroy the Logger:: Logger object
  *
  */
@@ -58,3 +77,4 @@ void Logger::closeLogFile() {
     _logFile.close();
   }
 }
+

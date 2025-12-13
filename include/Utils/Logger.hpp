@@ -26,6 +26,10 @@ public:
   void initLogger();
 
   void addLog(const std::string &message);
+  // Access a global logger instance from anywhere: Logger::getInstance().addLog(...)
+  static Logger &getInstance();
+  // Convenience static wrapper so you can call Logger::addLogGlobal("msg");
+  static void addLogGlobal(const std::string &message);
 
   bool isLogFileOpen() const;
 

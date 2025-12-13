@@ -30,4 +30,4 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y cppcheck
 
       - name: Run cppcheck
-        run: cppcheck --enable=all --suppress=missingIncludeSystem --suppress=unusedFunction --error-exitcode=1 -I ./include -I ./include/Core -I ./include/Engine -I ./include/Neural -I ./include/Protocol -I ./include/Utils src/
+        run: cppcheck --enable=all --inline-suppr --suppress=missingIncludeSystem --suppress=unusedFunction --error-exitcode=1 -I ./include -I ./include/Core -I ./include/Engine -I ./include/Neural -I ./include/Protocol -I ./include/Utils src/
