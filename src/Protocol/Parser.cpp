@@ -119,7 +119,7 @@ void Parser::TurnCommand(std::stringstream &args) {
     if (parseCoordinates(move, x, y)) {
       _gameBoard.makeMove(x, y, 2);
     } else {
-      sendError("Invalid TURN command format: " + move);
+      sendError("Invalid move format: " + move);
       return;
     }
   }
