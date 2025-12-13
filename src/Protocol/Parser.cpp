@@ -146,6 +146,7 @@ void Parser::BeginCommand([[maybe_unused]] std::stringstream &args) {
   std::cout << bestMove.first << "," << bestMove.second << std::endl;
 }
 
+// cppcheck-suppress constParameterCallback
 void Parser::BoardCommand(std::stringstream &args) {
   std::string line;
   (void)args;
