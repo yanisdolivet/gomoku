@@ -9,6 +9,8 @@
 
 #include "../Core/Board.hpp"
 #include "../Utils/Logger.hpp"
+#include "../Neural/Network.hpp"
+#include "../Engine/MCTS.hpp"
 
 #include <iostream>
 #include <map>
@@ -25,7 +27,7 @@
 
 class Parser {
 public:
-  explicit Parser(Logger &logger);
+  Parser();
   ~Parser();
 
   void runParser();
@@ -40,9 +42,10 @@ public:
   void RestartCommand(std::stringstream &args);
 
 private:
-  Logger *_logger;
   Board _gameBoard;
   bool _isRunning;
+  Network _network;
+  int _timeoutTurn = 5000;
 
   void sendError(const std::string &message);
 
