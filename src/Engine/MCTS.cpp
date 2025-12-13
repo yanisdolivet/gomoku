@@ -26,14 +26,16 @@ MCTS::MCTS(Network &network) : _network(network) {}
 std::pair<int, int> MCTS::findBestMove(const Board &board, int timeMs) {
   auto start = std::chrono::high_resolution_clock::now();
   int iterations = 0;
-  int timeout = timeMs - DEFAULT_SECURITY_MS;
+  int timeout = timeMs;
+  if (timeout < 0)
+    timeout = 0;
   int rootPlayer =
       (board.getMyBoard().count() <= board.getOpponentBoard().count()) ? 1 : 2;
   Node *root = new Node(-1, 1.0f, rootPlayer, nullptr);
 
   expand(root, board);
   while (true) {
-    if ((iterations & 63) == 0) {
+    if ((iterations & 15) == 0) {
       auto now = std::chrono::high_resolution_clock::now();
       auto elapsed =
           std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
