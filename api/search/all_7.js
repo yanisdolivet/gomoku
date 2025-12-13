@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['resetboard_0',['resetBoard',['../classBoard.html#a7cef7a9ca499d64c71cb170d67f76ad0',1,'Board']]],
-  ['rules_1',['Rules',['../classRules.html',1,'']]]
+  ['loadmodel_0',['loadModel',['../classNetwork.html#a2ef93549e96665a2f575fb99a542eecd',1,'Network']]],
+  ['logger_1',['Logger',['../classLogger.html',1,'']]]
 ];

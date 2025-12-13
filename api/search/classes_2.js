@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rules_0',['Rules',['../classRules.html',1,'']]]
+  ['mcts_0',['MCTS',['../classMCTS.html',1,'']]]
 ];
