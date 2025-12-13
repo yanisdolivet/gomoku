@@ -14,7 +14,7 @@ A bitset uses only 1 bit per position, whereas a vector or 2D array of int uses 
 
 ## Bitwise operations
 
-To optimise the project, we use bitwise operations to check for a winner. We need to optimise this function because it is call by the Monte Carlo Tree Search algorithm. Monte Carlo Tree Search search for the best move by simulating multiple games. If checkWin take only 10ms to check the winner, the Monte Carlo Tree Search can simule 1 000 000 games in 1 second. If checkWin take 1 millisecond to check the winner, the Monte Carlo Tree Search can simule 1 000 games in 1 second.
+To optimise the project, we use bitwise operations to check for a winner. We need to optimise this function because it is call by the Monte Carlo Tree Search algorithm. Monte Carlo Tree Search search for the best move by simulating multiple games. If checkWin take only 10ms to check the winner, the Monte Carlo Tree Search can simulate 1 000 000 games in 1 second. If checkWin take 1 millisecond to check the winner, the Monte Carlo Tree Search can simulate 1 000 games in 1 second.
 Bitwise operations are faster than using loops to check for a winner because they are executed at the hardware level.
 To explain it simply, bitwise operations are executed at the hardware level, while loops are executed at the software level. To check winner with loop, we need to check each bit of the board, while with bitwise operations, we can check multiple bits at once. At the final, bitwise check 64 bits (because processor is 64 bits) in 1 operation, while loop check 1 bit in 1 operation. The processor execute only 7 operations to check for a winner with bitwise.
 Bitwise is the ultimate optimisation for this project for 3 reasons:
@@ -56,7 +56,7 @@ In essence, this `loadTensor` lambda reads the exact byte representation of the 
 
 **Reasons**
 This method is the most efficient way to load a tensor from a binary file because it allows us to read the raw bytes of the data stored in the file. This is much faster than parsing the data as text, which can be slow and resource-intensive. In addition, it consummes less memory than parsing the data as text, which can be a problem when loading large models.
-Finally, it consumes less cpu ressource because it doesn't need loop to parse the data.
+Finally, it consumes less cpu resource because it doesn't need loop to parse the data.
 
 ## Loop Unrolling
 

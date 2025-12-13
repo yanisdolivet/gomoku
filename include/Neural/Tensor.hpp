@@ -28,7 +28,7 @@ struct Tensor {
     /**
      * @brief Parameterized constructor for Tensor
      * @param r Number of rows
-     * @param c Number of columnsx
+     * @param c Number of columns
      */
     Tensor(int r, int c) : rows(r), cols(c) {
         values.resize(r * c, 0.0f);

@@ -100,6 +100,9 @@ bool Parser::parseCoordinates(const std::string &token, int &x, int &y) {
   try {
     x = std::stoi(token.substr(0, commaPos));
     y = std::stoi(token.substr(commaPos + 1));
+    if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
+      return false;
+    }
   } catch (const std::invalid_argument &) {
     return false;
   } catch (const std::out_of_range &) {
@@ -203,11 +206,11 @@ void Parser::BoardCommand(std::stringstream &args) {
       if (player == 1) {
         _gameBoard.makeMove(x, y, 1);
         Logger::addLogGlobal("Updated board: (" + std::to_string(x) + "," +
-                             std::to_string(y) + ") P1 (Opponent)");
+                             std::to_string(y) + ") P1 (AI)");
       } else if (player == 2) {
         _gameBoard.makeMove(x, y, 2);
         Logger::addLogGlobal("Updated board: (" + std::to_string(x) + "," +
-                             std::to_string(y) + ") P2 (AI)");
+                             std::to_string(y) + ") P2 (Opponent)");
       } else if (player == 3) {
         _gameBoard.makeMove(x, y, 2);
         Logger::addLogGlobal("Updated board: (" + std::to_string(x) + "," +

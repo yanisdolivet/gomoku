@@ -51,11 +51,6 @@ bool Network::loadModel(const std::string &modelPath) {
     Logger::getInstance().addLog("Error reading model file: " + modelPath);
     return false;
   }
-  if (file.fail()) {
-    Logger::getInstance().addLog("Failed to read model data from file: " +
-                                 modelPath);
-    return false;
-  }
   Logger::getInstance().addLog("Successfully loaded model from: " + modelPath);
   return true;
 }
@@ -110,7 +105,7 @@ void Network::relu(Tensor &tensor) {
  * @brief Apply Softmax activation function
  * @param values Vector of values to apply Softmax on
  * @note Softmax converts a vector of values into a probability distribution.
- * The function are use to have the sum of all output equal to 1.
+ * The function is used to ensure that the sum of all outputs equals 1.
  */
 void Network::softmax(std::vector<float> &values) {
   if (values.empty())
