@@ -125,12 +125,20 @@ void Parser::TurnCommand(std::stringstream &args) {
       return;
     }
   }
-  Logger::addLogGlobal("MCTS Start Thinking...");
   MCTS mcts(_network);
-  int timeLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
 
-  std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit - 400);
+  int dynamicTime = _timeLeft / 20;
+  int turnLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
+  int timeLimit = std::min(turnLimit, dynamicTime);
 
+  if (timeLimit > 200)
+    timeLimit -= 200;
+  if (timeLimit < 100)
+    timeLimit = 100;
+  if (timeLimit > _timeLeft - 200)
+    timeLimit = std::max(0, _timeLeft - 200);
+
+  std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit);
   _gameBoard.makeMove(bestMove.first, bestMove.second, 1);
   std::cout << bestMove.first << "," << bestMove.second << std::endl;
 
@@ -173,8 +181,19 @@ void Parser::BoardCommand(std::stringstream &args) {
         Logger::addLogGlobal(
             "BOARD done. Opponent has more stones (or start). AI Turn.");
         MCTS mcts(_network);
-        std::pair<int, int> bestMove =
-            mcts.findBestMove(_gameBoard, _timeoutTurn - 50);
+
+        int dynamicTime = _timeLeft / 20;
+        int turnLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
+        int timeLimit = std::min(turnLimit, dynamicTime);
+
+        if (timeLimit > 200)
+          timeLimit -= 200;
+        if (timeLimit < 100)
+          timeLimit = 100;
+        if (timeLimit > _timeLeft - 200)
+          timeLimit = std::max(0, _timeLeft - 200);
+
+        std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit);
 
         _gameBoard.makeMove(bestMove.first, bestMove.second, 2);
 
@@ -248,6 +267,7 @@ void Parser::InfoCommand(std::stringstream &args) {
                              std::to_string(maxMemory));
       } else if (key == "time_left") {
         int timeLeft = std::stoi(value);
+        _timeLeft = timeLeft;
         Logger::addLogGlobal("Received time_left info: " +
                              std::to_string(timeLeft));
       } else if (key == "game_type") {

@@ -8,9 +8,9 @@
 #pragma once
 
 #include "../Core/Board.hpp"
-#include "../Utils/Logger.hpp"
-#include "../Neural/Network.hpp"
 #include "../Engine/MCTS.hpp"
+#include "../Neural/Network.hpp"
+#include "../Utils/Logger.hpp"
 
 #include <iostream>
 #include <map>
@@ -46,6 +46,7 @@ private:
   bool _isRunning;
   Network _network;
   int _timeoutTurn = 5000;
+  int _timeLeft = 60000;
 
   void sendError(const std::string &message);
 
