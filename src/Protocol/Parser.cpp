@@ -77,6 +77,8 @@ void Parser::runParser() {
 void Parser::StartCommand(std::stringstream &args) {
   int size;
   args >> size;
+  if (size == 0)
+    exit(84);
   if (size != SIZE) {
     sendError("Unsupported board size: " + std::to_string(size));
     return;
@@ -160,7 +162,10 @@ void Parser::BeginCommand([[maybe_unused]] std::stringstream &args) {
 void Parser::BoardCommand(std::stringstream &args) {
   std::string line;
   (void)args;
-
+  if (_gameBoard.getMyBoard().count() > 0 ||
+      _gameBoard.getOpponentBoard().count() > 0) {
+    exit(84);
+  }
   _gameBoard.resetBoard();
   while (std::getline(std::cin, line)) {
     if (!line.empty() && line.back() == '\r')
