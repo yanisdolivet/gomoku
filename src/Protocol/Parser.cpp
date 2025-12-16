@@ -77,11 +77,14 @@ void Parser::runParser() {
 void Parser::StartCommand(std::stringstream &args) {
   int size;
   args >> size;
-  if (size == 0)
+  if (size == 0) {
+    sendError("Board size cannot be 0");
+    std::cout << "ERROR size 0 is unsuported" << std::endl;
     exit(84);
+  }
   if (size != SIZE) {
     sendError("Unsupported board size: " + std::to_string(size));
-    return;
+    exit(84);
   }
   _gameBoard.resetBoard();
   Logger::addLogGlobal("MCTS: Doing Warm-up during START phase...");
@@ -172,19 +175,6 @@ void Parser::BoardCommand(std::stringstream &args) {
       line.pop_back();
 
     if (line == "DONE") {
-      int myStoneCount = _gameBoard.getMyBoard().count();
-      int opponentStoneCount = _gameBoard.getOpponentBoard().count();
-
-      bool isAiTurn = false;
-      if (opponentStoneCount > myStoneCount) {
-        isAiTurn = true;
-      } else if (opponentStoneCount == 0 && myStoneCount == 0) {
-        isAiTurn = true;
-      }
-
-      if (isAiTurn) {
-        Logger::addLogGlobal(
-            "BOARD done. Opponent has more stones (or start). AI Turn.");
         MCTS mcts(_network);
 
         int dynamicTime = _timeLeft / 20;
@@ -205,11 +195,6 @@ void Parser::BoardCommand(std::stringstream &args) {
         std::cout << bestMove.first << "," << bestMove.second << std::endl;
         Logger::addLogGlobal("AI played: " + std::to_string(bestMove.first) +
                              "," + std::to_string(bestMove.second));
-      } else {
-        Logger::addLogGlobal("BOARD done. Counts equal (Opp=" +
-                             std::to_string(opponentStoneCount) +
-                             "). Waiting for opponent.");
-      }
       return;
     }
     std::stringstream ssline(line);
