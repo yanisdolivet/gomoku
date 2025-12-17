@@ -106,6 +106,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetBoard</b> ()</td
 <tr class="memitem:a5654532305035bc0c4fabae440260b21" id="r_a5654532305035bc0c4fabae440260b21"><td class="memItemLeft" align="right" valign="top">const std::bitset&lt; AREA &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBoard.html#a5654532305035bc0c4fabae440260b21">getOpponentBoard</a> () const</td></tr>
 <tr class="memdesc:a5654532305035bc0c4fabae440260b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get opponent's board bitset.  <br /></td></tr>
 <tr class="separator:a5654532305035bc0c4fabae440260b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aded41b1a7f027bb1faf90675f7ce14" id="r_a8aded41b1a7f027bb1faf90675f7ce14"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; AREA &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBoard.html#a8aded41b1a7f027bb1faf90675f7ce14">getWinningCandidates</a> (int player) const</td></tr>
+<tr class="memdesc:a8aded41b1a7f027bb1faf90675f7ce14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get winning move candidates for a player.  <br /></td></tr>
+<tr class="separator:a8aded41b1a7f027bb1faf90675f7ce14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07025e1fe8b4a897b99a9b4d20ad9dad" id="r_a07025e1fe8b4a897b99a9b4d20ad9dad"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; AREA &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBoard.html#a07025e1fe8b4a897b99a9b4d20ad9dad">getThreatCandidates</a> (int player) const</td></tr>
+<tr class="memdesc:a07025e1fe8b4a897b99a9b4d20ad9dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get threat move candidates for a player.  <br /></td></tr>
+<tr class="separator:a07025e1fe8b4a897b99a9b4d20ad9dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents the game board for Gomoku. </p>
@@ -168,6 +174,62 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetBoard</b> ()</td
 
 <p>Get opponent's board bitset. </p>
 <dl class="section return"><dt>Returns</dt><dd>const std::bitset&lt;AREA&gt; &amp; </dd></dl>
+
+</div>
+</div>
+<a id="a07025e1fe8b4a897b99a9b4d20ad9dad" name="a07025e1fe8b4a897b99a9b4d20ad9dad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07025e1fe8b4a897b99a9b4d20ad9dad">&#9670;&#160;</a></span>getThreatCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::bitset&lt; AREA &gt; Board::getThreatCandidates </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>player</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get threat move candidates for a player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">player</td><td>Player number (1 or 2) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::bitset&lt;AREA&gt; Bitset of threat move candidates </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A threat move candidate is a position that, if played by the player, would create a four-in-a-row, setting up for a potential win on the next turn. </dd></dl>
+
+</div>
+</div>
+<a id="a8aded41b1a7f027bb1faf90675f7ce14" name="a8aded41b1a7f027bb1faf90675f7ce14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aded41b1a7f027bb1faf90675f7ce14">&#9670;&#160;</a></span>getWinningCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::bitset&lt; AREA &gt; Board::getWinningCandidates </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>player</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get winning move candidates for a player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">player</td><td>Player number (1 or 2) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::bitset&lt;AREA&gt; Bitset of winning move candidates </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A winning move candidate is a position that, if played by the player, would result in an immediate win. </dd></dl>
 
 </div>
 </div>
