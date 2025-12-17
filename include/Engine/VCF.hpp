@@ -17,5 +17,5 @@ public:
   static std::pair<int, int> solve(const Board &board, int player, int depth);
 
 private:
-  static bool vcf(Board board, int player, int depth, int &winningMove);
+  static bool vcf(const Board &board, int player, int depth, int &winningMove);
 };

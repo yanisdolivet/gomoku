@@ -48,7 +48,7 @@ std::pair<int, int> VCF::solve(const Board &board, int player, int depth) {
  * @return true If a winning move was found
  * @return false If no winning move was found
  */
-bool VCF::vcf(Board board, int player, int depth, int &winningMove) {
+bool VCF::vcf(const Board &board, int player, int depth, int &winningMove) {
   if (depth == 0)
     return false;
 

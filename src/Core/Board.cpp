@@ -193,7 +193,7 @@ std::bitset<AREA> Board::getWinningCandidates(int player) const {
     return b;
   };
 
-  int dirs[] = {1, SIZE, SIZE + 1, SIZE - 1};
+  const int dirs[] = {1, SIZE, SIZE + 1, SIZE - 1};
 
   for (int d : dirs) {
     std::bitset<AREA> s1 = shift(p, -1, d);
@@ -260,7 +260,7 @@ std::bitset<AREA> Board::getThreatCandidates(int player) const {
     return b;
   };
 
-  int dirs[] = {1, SIZE, SIZE + 1, SIZE - 1};
+  const int dirs[] = {1, SIZE, SIZE + 1, SIZE - 1};
 
   for (int d : dirs) {
     std::bitset<AREA> s1 = shift(p, -1, d);
