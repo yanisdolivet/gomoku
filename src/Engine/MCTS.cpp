@@ -31,6 +31,23 @@ std::pair<int, int> MCTS::findBestMove(const Board &board, int timeMs) {
     timeout = 0;
   int rootPlayer =
       (board.getMyBoard().count() <= board.getOpponentBoard().count()) ? 1 : 2;
+
+  std::pair<int, int> vcfWin = VCF::solve(board, rootPlayer, 12);
+  if (vcfWin.first != -1) {
+    Logger::addLogGlobal("VCF Win found at: " + std::to_string(vcfWin.first) +
+                         ", " + std::to_string(vcfWin.second));
+    return vcfWin;
+  }
+
+  int opponent = (rootPlayer == 1) ? 2 : 1;
+  std::pair<int, int> vcfLoss = VCF::solve(board, opponent, 12);
+  if (vcfLoss.first != -1) {
+    Logger::addLogGlobal(
+        "VCF Defense needed at: " + std::to_string(vcfLoss.first) + ", " +
+        std::to_string(vcfLoss.second));
+    return vcfLoss;
+  }
+
   Node *root = new Node(-1, 1.0f, rootPlayer, nullptr);
 
   expand(root, board);

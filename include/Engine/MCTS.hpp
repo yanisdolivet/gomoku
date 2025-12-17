@@ -9,6 +9,7 @@
 
 #include "../Neural/Network.hpp"
 #include "Node.hpp"
+#include "VCF.hpp"
 
 #include <chrono>
 #include <iostream>

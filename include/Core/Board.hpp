@@ -37,6 +37,10 @@ public:
 
   const std::bitset<AREA> &getOpponentBoard() const;
 
+  std::bitset<AREA> getWinningCandidates(int player) const;
+
+  std::bitset<AREA> getThreatCandidates(int player) const;
+
 private:
   std::bitset<AREA> _myBoard;       // Board of the player
   std::bitset<AREA> _opponentBoard; // Board of the opponent
