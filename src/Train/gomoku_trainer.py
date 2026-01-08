@@ -24,51 +24,6 @@ def parse_arguments():
     args = parser.parse_args()
     return args.GOFILE
 
-def he_normal(layer_size, seed=0):
-    weights = []
-    np.random.seed(seed)
-    L = len(layer_size)
-    for l in range(1, L):
-        stddev = np.sqrt(2.0 / layer_size[l - 1])
-        w = np.random.normal(0, stddev, (layer_size[l], layer_size[l - 1]))
-        weights.append(w)
-    return weights
-
-def create_weights(init_method, layer_size):
-    match init_method:
-        case "he_normal":
-            weights = he_normal(layer_size)
-        case "xavier":
-            weights = []
-            L = len(layer_size)
-            for l in range(1, L):
-                stddev = np.sqrt(1.0 / layer_size[l - 1])
-                w = np.random.normal(0, stddev, (layer_size[l], layer_size[l - 1]))
-                weights.append(w)
-        case "he_mixed_xavier":
-            weights = []
-            L = len(layer_size)
-            for l in range(1, L):
-                if l == L - 1:
-                    stddev = np.sqrt(1.0 / layer_size[l - 1])
-                else:
-                    stddev = np.sqrt(2.0 / layer_size[l - 1])
-                w = np.random.normal(0, stddev, (layer_size[l], layer_size[l - 1]))
-                weights.append(w)
-        case "random":
-            weights = [
-                np.random.rand(layer_size[l], layer_size[l - 1]) * 0.01
-                for l in range(1, len(layer_size))
-            ]
-        case _:
-            print(f"Unknown initialization method: {init_method}")
-    return weights
-
-def create_biases(layer_size):
-    biases = [np.zeros((layer_size[l], 1)) for l in range(1, len(layer_size))]
-    return biases
-
-
 def main():
     """Main function to run the training or prediction process based on command-line arguments."""
     try:
@@ -87,8 +42,28 @@ def main():
         X_train, X_val = X_data[:split], X_data[split:]
         Y_train, Y_val = Y_targets[:split], Y_targets[split:]
 
-        weights = create_weights("he_mixed_xavier", [400, 128, 400])
-        biases = create_biases([400, 128, 400])
+        input_size = 400
+        hidden_size = 128
+        policy_size = 400
+        value_size = 1
+
+        weights = []
+        biases = []
+
+        w_shared = np.random.randn(input_size, hidden_size) * np.sqrt(2.0/input_size)
+        b_shared = np.zeros((1, hidden_size))
+        weights.append(w_shared)
+        biases.append(b_shared)
+
+        w_policy = np.random.randn(hidden_size, policy_size) * np.sqrt(2.0/hidden_size)
+        b_policy = np.zeros((1, policy_size))
+        weights.append(w_policy)
+        biases.append(b_policy)
+
+        w_value = np.random.randn(hidden_size, value_size) * np.sqrt(2.0/hidden_size)
+        b_value = np.zeros((1, value_size))
+        weights.append(w_value)
+        biases.append(b_value)
 
         network = Network()
         network.createLayer(weights, biases)
