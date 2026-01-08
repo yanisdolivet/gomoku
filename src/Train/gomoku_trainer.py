@@ -8,6 +8,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.Train.my_torch.Network import Network
+from src.Train.data_set.verify_data import verify_dataset
 
 ERROR_CODE = 84
 NN_FILE = "gomoku_model.nn"
@@ -24,11 +25,16 @@ def parse_arguments():
     args = parser.parse_args()
     return args.GOFILE
 
+def parse_data(gofile):
+    pass
+
 def main():
     """Main function to run the training or prediction process based on command-line arguments."""
     try:
         gofile = parse_arguments()
-        X_data, Y_targets = parser.parse_file(gofile)
+        X_data, Y_policy, Y_value = parse_data(gofile)
+
+        verify_dataset(X_data)
 
         if len(X_data) == 0:
             print("Error: No valid Go data.", file=sys.stderr)
@@ -36,11 +42,12 @@ def main():
 
         indices = np.arange(len(X_data))
         np.random.shuffle(indices)
-        X_data, Y_targets = X_data[indices], Y_targets[indices]
+        X_data, Y_policy, Y_value = X_data[indices], Y_policy[indices], Y_value[indices]
 
         split = int(0.8 * len(X_data))
         X_train, X_val = X_data[:split], X_data[split:]
-        Y_train, Y_val = Y_targets[:split], Y_targets[split:]
+        Y_policy_train, Y_policy_val = Y_policy[:split], Y_policy[split:]
+        Y_value_train, Y_value_val = Y_value[:split], Y_value[split:]
 
         input_size = 400
         hidden_size = 128
@@ -71,9 +78,11 @@ def main():
         network.train(
             NN_FILE,
             X_val=X_val,
-            Y_val=Y_val,
             X_train=X_train,
-            Y_train=Y_train,
+            Y_value_val=Y_value_val,
+            Y_value_train=Y_value_train,
+            Y_policy_val=Y_policy_val,
+            Y_policy_train=Y_policy_train,
         )
 
     except SystemExit:

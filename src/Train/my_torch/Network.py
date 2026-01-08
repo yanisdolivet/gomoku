@@ -37,7 +37,7 @@ class Network:
         self.layerCount = len(self.layerSize)
         self.layers = []
         self.matrix_input = None
-        self.matrix_output = None
+        self.matrix_policy_output = None
 
 
 
@@ -55,7 +55,7 @@ class Network:
         self.value_head.biases = biases[2]
         self.layers.append(self.shared_layer)
         self.layers.append(self.policy_head)
-        self.layers.append(sel:f.value_head)
+        self.layers.append(self.value_head)
 
     def loss_policy(self, predicted_policy, expected_policy, current_batch_size):
         """Compute the cross-entropy loss between predicted and expected policy distributions.
@@ -90,21 +90,25 @@ class Network:
         self,
         saveFile,
         X_val=None,
-        Y_val=None,
         X_train=None,
-        Y_train=None,
+        Y_policy_val=None,
+        Y_policy_train=None,
+        Y_value_val=None,
+        Y_value_train=None,
     ):
         """Train the neural network using mini-batch gradient descent with L2 regularization.
         Args:
             saveFile (str): File path to save the trained model.
             X_val (numpy.ndarray or None): Validation input data.
-            Y_val (numpy.ndarray or None): Validation output data.
+            Y_policy_val (numpy.ndarray or None): Validation policy output data.
+            Y_value_val (numpy.ndarray or None): Validation value output data.
             X_train (numpy.ndarray or None): Training input data.
-            Y_train (numpy.ndarray or None): Training output data.
+            Y_policy_train (numpy.ndarray or None): Training policy output data.
+            Y_value_train (numpy.ndarray or None): Training value output data.
         """
-        if X_train is not None and Y_train is not None:
+        if X_train is not None and Y_policy_train is not None and Y_value_train is not None:
             self.matrix_input = X_train
-            self.matrix_output = Y_train
+            self.matrix_policy_output = Y_policy_train
         num_samples = len(self.matrix_input)
         print(f"Starting training on {num_samples} samples...")
 
@@ -119,22 +123,24 @@ class Network:
             indices = np.arange(num_samples)
             np.random.shuffle(indices)
             X_shuffled = self.matrix_input[indices]
-            Y_shuffled = self.matrix_output[indices]
+            Y_policy_shuffled = self.matrix_policy_output[indices]
+            Y_value_shuffled = self.matrix_value_output[indices]
 
             total_loss = 0.0
             total_correct = 0
 
             for i in range(0, num_samples, batch_size):
                 input_data = X_shuffled[i : i + batch_size]
-                expected_output = Y_shuffled[i : i + batch_size]
+                policy_batch = Y_policy_shuffled[i : i + batch_size]
+                value_batch = Y_value_shuffled[i : i + batch_size]
                 current_batch_size = len(input_data)
 
                 # Forward
                 predicted_policy, predicted_value = self.forward(input_data, training=True)
 
                 # Loss Calculation
-                loss_policy = self.loss_policy(predicted_policy, expected_output, current_batch_size)
-                loss_value = self.loss_value(predicted_value, expected_output)
+                loss_policy = self.loss_policy(predicted_policy, policy_batch, current_batch_size)
+                loss_value = self.loss_value(predicted_value, value_batch)
 
                 # L2 regularization
                 w = 0
@@ -145,11 +151,11 @@ class Network:
 
                 # Accuracy Train
                 train_preds = np.argmax(predicted_policy, axis=1)
-                train_labels = np.argmax(expected_output, axis=1)
+                train_labels = np.argmax(policy_batch, axis=1)
                 total_correct += np.sum(train_preds == train_labels)
 
                 # Backward
-                gradient = predicted_policy - expected_output
+                gradient = predicted_policy - policy_batch
                 self.backward(gradient, learningRate, self.model_spec.lreg)
 
             # Metrics
@@ -157,15 +163,16 @@ class Network:
             train_acc = total_correct / num_samples
 
             val_msg = ""
-            if X_val is not None and Y_val is not None:
-                val_output = self.forward(X_val, training=False)
-                val_preds = np.argmax(val_output, axis=1)
-                val_truth = np.argmax(Y_val, axis=1)
+            if X_val is not None and Y_policy_val is not None and Y_value_val is not None:
+                predicted_policy_val, predicted_value_val = self.forward(X_val, training=False)
+                val_preds = np.argmax(predicted_policy_val, axis=1)
+                val_truth = np.argmax(Y_policy_val, axis=1)
                 val_acc = np.mean(val_preds == val_truth)
-                val_loss = -np.sum(
-                    Y_val * np.log(np.clip(val_output, 1e-15, 1 - 1e-15))
+                val_loss_policy = -np.sum(
+                    Y_policy_val * np.log(np.clip(predicted_policy_val, 1e-15, 1 - 1e-15))
                 ) / len(X_val)
-                val_msg = f" - Val Acc: {val_acc:.2%}"
+                val_loss_value = np.mean((predicted_value_val - Y_value_val) ** 2)
+                val_msg = f" - Val Acc: {val_acc:.2%} - Val Loss Policy: {val_loss_policy:.4f} - Val Loss Value: {val_loss_value:.4f}"
 
                 if val_acc > best_val_acc:
                     best_val_acc = val_acc
