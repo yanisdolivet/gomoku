@@ -55,7 +55,7 @@ class Network:
         self.value_head.biases = biases[2]
         self.layers.append(self.shared_layer)
         self.layers.append(self.policy_head)
-        self.layers.append(self.value_head)
+        self.layers.append(sel:f.value_head)
 
     def loss_policy(self, predicted_policy, expected_policy, current_batch_size):
         """Compute the cross-entropy loss between predicted and expected policy distributions.
@@ -187,7 +187,7 @@ class Network:
                 layer.weights = best_weights[i]
                 layer.biases = best_biases[i]
 
-        self.saveTrainedNetwork(saveFile)
+        self.save_for_cpp(saveFile)
 
     def forward(self, input, training=True) -> np.array:
         """Perform forward pass through the network.
@@ -237,38 +237,29 @@ class Network:
         encoded = s.encode("utf-8")
         return struct.pack("I", len(encoded)) + encoded
 
-    def saveTrainedNetwork(self, filePath):
-        """Save the trained network to a binary file with full configuration.
-        Args:
-            filePath (str): Path to save the network file.
+    def save_for_cpp(self, filepath):
+        """Exports weights in raw binary format matching C++ loadModel order:
+           1. Shared Weights (400x128)
+           2. Shared Biases (128)
+           3. Policy Weights (128x400)
+           4. Policy Biases (400)
+           5. Value Weights (128x1)
+           6. Value Biases (1)
         """
         try:
-            VERSION = 2
-            with open(filePath, "wb") as f:
-                f.write(struct.pack("III", MAGIC_NUMBER, VERSION, len(self.layerSize)))
-                f.write(struct.pack(f"{len(self.layerSize)}I", *self.layerSize))
+            with open(filepath, "wb") as f:
+                # 1. Shared Layer
+                f.write(self.shared_layer.weights.astype(np.float32).tobytes())
+                f.write(self.shared_layer.biases.astype(np.float32).tobytes())
 
-                for i in range(len(self.model_spec.type)):
-                    f.write(self._encode_string(self.model_spec.type[i]))
-                    f.write(self._encode_string(self.model_spec.activation[i]))
+                # 2. Policy Head
+                f.write(self.policy_head.weights.astype(np.float32).tobytes())
+                f.write(self.policy_head.biases.astype(np.float32).tobytes())
 
-                f.write(struct.pack("f", self.model_spec.learning_rate))
-                f.write(self._encode_string(self.model_spec.initialization))
+                # 3. Value Head
+                f.write(self.value_head.weights.astype(np.float32).tobytes())
+                f.write(self.value_head.biases.astype(np.float32).tobytes())
 
-                f.write(struct.pack("I", self.model_spec.batch_size))
-                f.write(struct.pack("I", self.model_spec.epochs))
-                f.write(struct.pack("f", self.model_spec.lreg))
-                f.write(struct.pack("f", self.model_spec.dropout_rate))
-                f.write(self._encode_string(self.model_spec.loss_function))
-
-                for layer in self.layers:
-                    w_flat = layer.weights.astype(np.float32).flatten()
-                    f.write(struct.pack(f"{len(w_flat)}f", *w_flat))
-                for layer in self.layers:
-                    b_flat = layer.biases.astype(np.float32).flatten()
-                    f.write(struct.pack(f"{len(b_flat)}f", *b_flat))
-
-            print(f"Saved trained network to {filePath}")
+            print(f"Successfully exported raw model to {filepath}")
         except IOError as e:
-            print(f"IOError: {e}", file=sys.stderr)
-            sys.exit(ERROR_CODE)
+            print(f"Error saving model: {e}", file=sys.stderr)
