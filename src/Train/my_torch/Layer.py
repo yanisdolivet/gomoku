@@ -35,6 +35,8 @@ class Layer:
         self.activation_type = activation_type
         if self.activation_type == "relu":
             self.act_func = lambda x: np.maximum(0, x)
+        elif self.activation_type == "tahn":
+            self.act_func = lambda x: np.tanh(x)
         else:
             self.act_func = lambda x: x
 
@@ -87,6 +89,8 @@ class Layer:
         elif self.activation_type == "sigmoid":
             sig = np.where(z >= 0, 1 / (1 + np.exp(-z)), np.exp(z) / (1 + np.exp(z)))
             return sig * (1 - sig)
+        elif self.activation_type == "tanh":
+            return 1 - np.tanh(z) ** 2
         else:
             return np.ones_like(z)
 

@@ -32,5 +32,10 @@ def verify_dataset(X_data):
     for row in sample:
         print(" ".join([symbols[int(round(x))] for x in row]))
 
+    # Check balance stone counts
+    stones_me = np.sum(X_data == 1.0)
+    stones_opp = np.sum(X_data == -1.0)
+    print(f"My Stones: {stones_me}, Opponent Stones: {stones_opp}")
+
     print("\n----------------------------------------")
     print("Dataset verification PASSED.\n")

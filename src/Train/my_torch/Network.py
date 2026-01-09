@@ -130,6 +130,7 @@ class Network:
 
             total_loss = 0.0
             total_correct = 0
+            total_top5 = 0
 
             for i in range(0, num_samples, batch_size):
                 input_data = X_shuffled[i : i + batch_size]
@@ -156,6 +157,12 @@ class Network:
                 train_labels = np.argmax(policy_batch, axis=1)
                 total_correct += np.sum(train_preds == train_labels)
 
+                # Top-5 Accuracy
+                top5_preds = np.argsort(predicted_policy, axis=1)[:, -5:]
+                true_indices = np.argmax(policy_batch, axis=1).reshape(-1, 1)
+                in_top5 = np.any(top5_preds == true_indices, axis=1)
+                total_top5 += np.sum(in_top5)
+
                 # Backward
                 self.backward(predicted_policy, predicted_value, policy_batch, value_batch, learningRate, self.model_spec.lreg)
 
@@ -181,7 +188,7 @@ class Network:
                     best_biases = [copy.deepcopy(l.biases) for l in self.layers]
 
             print(
-                f"Epoch {epoch + 1}/{self.model_spec.epochs} - Loss: {avg_loss:.4f} - Train Acc: {train_acc:.2%}{val_msg}"
+                f"Epoch {epoch + 1}/{self.model_spec.epochs} - Loss: {avg_loss:.4f} - Train Acc: {train_acc:.2%}{val_msg}, Top-5 Acc: {total_top5 / num_samples:.2%}"
             )
 
             # Learning rate decay
