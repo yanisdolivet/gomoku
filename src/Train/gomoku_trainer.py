@@ -20,21 +20,18 @@ def parse_arguments():
         tuple: (is_train (bool), loadfile (str), gofolder (str), savefile (str or None))
     """
     parser = argparse.ArgumentParser(
-        usage="./gomoku_trainer.py gofolder"
+        usage="./gomoku_trainer.py gofolder1 gofolder2 ...",
     )
-    parser.add_argument("gofolder", type=str)
+    parser.add_argument("gofolders", nargs='+', type=str, help="One or more folders containing Go game data")
     args = parser.parse_args()
-    return args.gofolder
-
-def parse_data(gofolder):
-    pass
+    return args.gofolders
 
 def main():
     """Main function to run the training or prediction process based on command-line arguments."""
     try:
-        gofolder = parse_arguments()
+        gofolders = parse_arguments()
         parser = PSQParser(board_size=20)
-        X_data, Y_policy, Y_value = parser.load_dataset(gofolder)
+        X_data, Y_policy, Y_value = parser.load_dataset(gofolders)
 
         verify_dataset(X_data)
 
