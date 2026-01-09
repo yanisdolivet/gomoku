@@ -38,6 +38,7 @@ class Network:
         self.layers = []
         self.matrix_input = None
         self.matrix_policy_output = None
+        self.matrix_value_output = None
 
 
 
@@ -109,6 +110,7 @@ class Network:
         if X_train is not None and Y_policy_train is not None and Y_value_train is not None:
             self.matrix_input = X_train
             self.matrix_policy_output = Y_policy_train
+            self.matrix_value_output = Y_value_train
         num_samples = len(self.matrix_input)
         print(f"Starting training on {num_samples} samples...")
 

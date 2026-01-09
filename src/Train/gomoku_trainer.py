@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.Train.my_torch.Network import Network
 from src.Train.data_set.verify_data import verify_dataset
+from src.Train.PSQ_parser import PSQParser
 
 ERROR_CODE = 84
 NN_FILE = "gomoku_model.nn"
@@ -16,23 +17,24 @@ NN_FILE = "gomoku_model.nn"
 def parse_arguments():
     """Parse command-line arguments and return the mode and file paths.
     Returns:
-        tuple: (is_train (bool), loadfile (str), gofile (str), savefile (str or None))
+        tuple: (is_train (bool), loadfile (str), gofolder (str), savefile (str or None))
     """
     parser = argparse.ArgumentParser(
-        usage="./gomoku_trainer.py GOFILE\n"
+        usage="./gomoku_trainer.py gofolder"
     )
-    parser.add_argument("GOFILE", type=str)
+    parser.add_argument("gofolder", type=str)
     args = parser.parse_args()
-    return args.GOFILE
+    return args.gofolder
 
-def parse_data(gofile):
+def parse_data(gofolder):
     pass
 
 def main():
     """Main function to run the training or prediction process based on command-line arguments."""
     try:
-        gofile = parse_arguments()
-        X_data, Y_policy, Y_value = parse_data(gofile)
+        gofolder = parse_arguments()
+        parser = PSQParser(board_size=20)
+        X_data, Y_policy, Y_value = parser.load_dataset(gofolder)
 
         verify_dataset(X_data)
 
