@@ -30,7 +30,7 @@ class Network:
         self.model_spec.learning_rate = 0.005
         self.model_spec.initialization = "he_normal"
         self.model_spec.batch_size = 64
-        self.model_spec.epochs = 1
+        self.model_spec.epochs = 20
         self.model_spec.lreg = 0.01
         self.model_spec.dropout_rate = 0.2
 
