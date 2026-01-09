@@ -86,12 +86,15 @@ class PSQParser:
 
         return X_list, Y_policy_list, Y_value_list
 
-    def load_dataset(self, folder_path):
+    def load_dataset(self, folders_path):
         all_X, all_Yp, all_Yv = [], [], []
-        files = glob.glob(os.path.join(folder_path, "*.psq"))
+        files = []
 
-        if not files:
-             files = glob.glob(os.path.join(folder_path, "*.txt"))
+        for folder in folders_path:
+            file_in_dir = glob.glob(os.path.join(folder, "*.psq"))
+            if not file_in_dir:
+                file_in_dir = glob.glob(os.path.join(folder, "*.txt"))
+            files.extend(file_in_dir)
 
         print(f"Found {len(files)} PSQ files.")
 
