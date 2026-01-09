@@ -22,7 +22,7 @@ Parser::Parser() {
   _commandHandlers["ABOUT"] = &Parser::AboutCommand;
   _commandHandlers["RESTART"] = &Parser::RestartCommand;
 
-  if (!_network.loadModel("assets/gomoku_model.bin")) {
+  if (!_network.loadModel("assets/gomoku_model.nn")) {
     Logger::addLogGlobal("Failed to load neural network model");
   } else {
     Logger::addLogGlobal("Neural network model loaded successfully");
