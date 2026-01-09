@@ -43,17 +43,20 @@ class Network {
         Output predict(const Board &board);
 
     private:
-        Tensor _inputBuffer; // Input tensor buffer
-        Tensor _hiddenBuffer; // Hidden layer tensor buffer
-        Tensor _policyLogitsBuffer; // Policy logits tensor buffer
-        Tensor _valueOutBuffer; // Value output tensor buffer
+        Tensor _inputBuffer;        // Input tensor buffer (1, 800)
+        Tensor _hidden1Buffer;      // First hidden layer output (1, 512)
+        Tensor _hidden2Buffer;      // Second hidden layer output (1, 256)
+        Tensor _policyLogitsBuffer; // Policy logits tensor buffer (1, 400)
+        Tensor _valueOutBuffer;     // Value output tensor buffer (1, 1)
 
-        Tensor _weights1; // Weights for the first layer
-        Tensor _biases1;  // Biases for the first layer
-        Tensor _weights2; // Weights for the second layer
-        Tensor _biases2;  // Biases for the second layer
-        Tensor _weightsPolicy; // Weights for the policy output layer
-        Tensor _biasesPolicy;  // Biases for the policy output layer
+        Tensor _weightsShared1;     // Weights for first shared layer (800, 512)
+        Tensor _biasesShared1;      // Biases for first shared layer (1, 512)
+        Tensor _weightsShared2;     // Weights for second shared layer (512, 256)
+        Tensor _biasesShared2;      // Biases for second shared layer (1, 256)
+        Tensor _weightsPolicy;      // Weights for policy head (256, 400)
+        Tensor _biasesPolicy;       // Biases for policy head (1, 400)
+        Tensor _weightsValue;       // Weights for value head (256, 1)
+        Tensor _biasesValue;        // Biases for value head (1, 1)
 
         void denseLayer(const Tensor &input, const Tensor &weights, const Tensor &biases, Tensor &output);
         void relu(Tensor &tensor);
