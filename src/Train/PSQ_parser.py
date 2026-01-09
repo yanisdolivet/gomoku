@@ -6,6 +6,26 @@ class PSQParser:
     def __init__(self, board_size=20):
         self.board_size = board_size
 
+    def augment_board(self, board_2d, policy_2d):
+        """
+        Returns a list of 8 variations (rotations/flips) of the board and policy.
+        """
+        augmented_X = []
+        augmented_Y = []
+
+        for k in range(4): # 0, 90, 180, 270 degrees
+            rot_X = np.rot90(board_2d, k)
+            rot_Y = np.rot90(policy_2d, k)
+
+            augmented_X.append(rot_X)
+            augmented_Y.append(rot_Y)
+
+            # Mirror (Flip Left-Right)
+            augmented_X.append(np.fliplr(rot_X))
+            augmented_Y.append(np.fliplr(rot_Y))
+
+        return augmented_X, augmented_Y
+
     def parse_file(self, filepath):
         try:
             with open(filepath, 'r') as f:
@@ -65,15 +85,21 @@ class PSQParser:
                 if current_player == -1:
                     input_state = -input_state
 
-                X_list.append(input_state.flatten())
+                board_2d = input_state.reshape(self.board_size, self.board_size)
+                policy_2d = np.zeros((self.board_size, self.board_size), dtype=np.float32)
+                policy_2d[y, x] = 1.0
 
-                policy_target = np.zeros(self.board_size * self.board_size, dtype=np.float32)
-                idx = y * self.board_size + x
-                policy_target[idx] = 1.0
-                Y_policy_list.append(policy_target)
+                aug_X, aug_Y = self.augment_board(board_2d, policy_2d)
+                for ax, ay in zip(aug_X, aug_Y):
+                    chan_my = (ax == 1).astype(np.float32)
+                    chan_op = (ax == -1).astype(np.float32)
 
-                outcome = 1.0 if current_player == winner else -1.0
-                Y_value_list.append(np.array([outcome], dtype=np.float32))
+                    merge_input = np.concatenate([chan_my.flatten(), chan_op.flatten()])
+
+                    X_list.append(merge_input)
+                    Y_policy_list.append(ay.flatten())
+                    outcome = 1.0 if current_player == winner else -1.0
+                    Y_value_list.append(np.array([outcome], dtype=np.float32))
 
                 # Apply move to board
                 board[y, x] = current_player
