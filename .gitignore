@@ -1,3 +1,10 @@
+#Python file
+*.pyc
+__pycache__/
+
+# Data set
+dataset/
+
 # Compiled object files
 *.o
 *.obj
