@@ -155,8 +155,7 @@ class Network:
                 total_correct += np.sum(train_preds == train_labels)
 
                 # Backward
-                gradient = predicted_policy - policy_batch
-                self.backward(gradient, learningRate, self.model_spec.lreg)
+                self.backward(predicted_policy, predicted_value, policy_batch, value_batch, learningRate, self.model_spec.lreg)
 
             # Metrics
             avg_loss = total_loss / num_samples
@@ -216,7 +215,7 @@ class Network:
 
         return policy_probs, value_pred
 
-    def backward(self, gradient, learning_rate, lambda_reg):
+    def backward(self, predicted_policy, predicted_value, expected_policy, expected_val, learning_rate, lambda_reg):
         """Perform backward pass through all layers with L2 regularization.
 
         Args:
@@ -227,11 +226,16 @@ class Network:
         Returns:
             numpy.ndarray: Gradient propagated to input layer.
         """
-        current_gradient = gradient
-        for i in range(len(self.layers) - 1, -1, -1):
-            current_gradient = self.layers[i].backward(
-                current_gradient, learning_rate, lambda_reg
-            )
+        gradient_policy = predicted_policy - expected_policy
+        batch_size = predicted_value.shape[0]
+        gradient_val = 2 * (predicted_value - expected_val) / batch_size
+
+        gradient_hiddend_policy = self.policy_head.backward(gradient_policy, learning_rate, lambda_reg)
+        gradient_hiddend_val = self.value_head.backward(gradient_val, learning_rate, lambda_reg)
+
+        total_hidden_gradient = gradient_hiddend_policy + gradient_hiddend_val
+
+        current_gradient = self.shared_layer.backward(total_hidden_gradient, learning_rate, lambda_reg)
         return current_gradient
 
     def _encode_string(self, s):
