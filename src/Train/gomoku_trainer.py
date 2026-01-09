@@ -48,25 +48,31 @@ def main():
         Y_policy_train, Y_policy_val = Y_policy[:split], Y_policy[split:]
         Y_value_train, Y_value_val = Y_value[:split], Y_value[split:]
 
-        input_size = 400
-        hidden_size = 128
+        input_size = 800
+        shared_size1 = 512
+        shared_size2 = 256
         policy_size = 400
         value_size = 1
 
         weights = []
         biases = []
 
-        w_shared = np.random.randn(input_size, hidden_size) * np.sqrt(2.0/input_size)
-        b_shared = np.zeros((1, hidden_size))
-        weights.append(w_shared)
-        biases.append(b_shared)
+        w_shared1 = np.random.randn(input_size, shared_size1) * np.sqrt(2.0/input_size)
+        b_shared1 = np.zeros((1, shared_size1))
+        weights.append(w_shared1)
+        biases.append(b_shared1)
 
-        w_policy = np.random.randn(hidden_size, policy_size) * np.sqrt(2.0/hidden_size)
+        w_shared2 = np.random.randn(shared_size1, shared_size2) * np.sqrt(2.0/shared_size1)
+        b_shared2 = np.zeros((1, shared_size2))
+        weights.append(w_shared2)
+        biases.append(b_shared2)
+
+        w_policy = np.random.randn(shared_size2, policy_size) * np.sqrt(2.0/shared_size2)
         b_policy = np.zeros((1, policy_size))
         weights.append(w_policy)
         biases.append(b_policy)
 
-        w_value = np.random.randn(hidden_size, value_size) * np.sqrt(2.0/hidden_size)
+        w_value = np.random.randn(shared_size2, value_size) * np.sqrt(2.0/shared_size2)
         b_value = np.zeros((1, value_size))
         weights.append(w_value)
         biases.append(b_value)

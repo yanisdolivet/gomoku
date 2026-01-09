@@ -5,6 +5,9 @@ __pycache__/
 # Data set
 dataset/
 
+# Config files
+config.ini
+
 # Compiled object files
 *.o
 *.obj

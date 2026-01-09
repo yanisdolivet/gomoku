@@ -19,17 +19,18 @@ ERROR_CODE = 84
 class Network:
     """Neural Network class managing layers, training, and prediction."""
 
-    def __init__(self, input_size=400, hidden_size=128, output_size=400):
-        self.shared_layer = Layer(input_size, hidden_size, "relu", dropout_rate=0.2)
-        self.policy_head = Layer(hidden_size, output_size, "linear", dropout_rate=0.2)
-        self.value_head = Layer(hidden_size, 1, "tanh", dropout_rate=0.2)
+    def __init__(self, input_size=800, shared_size1=512, shared_size2=256, output_size=400):
+        self.shared_layer1 = Layer(input_size, shared_size1, "relu", dropout_rate=0.2)
+        self.shared_layer2 = Layer(shared_size1, shared_size2, "relu", dropout_rate=0.2)
+        self.policy_head = Layer(shared_size2, output_size, "linear", dropout_rate=0.2)
+        self.value_head = Layer(shared_size2, 1, "tanh", dropout_rate=0.2)
 
         self.model_spec = ModelSpecifications
-        self.model_spec.layer_sizes = [input_size, hidden_size, output_size]
+        self.model_spec.layer_sizes = [input_size, shared_size1, shared_size2, output_size]
         self.model_spec.learning_rate = 0.005
         self.model_spec.initialization = "he_normal"
         self.model_spec.batch_size = 64
-        self.model_spec.epochs = 100
+        self.model_spec.epochs = 1
         self.model_spec.lreg = 0.01
         self.model_spec.dropout_rate = 0.2
 
@@ -48,13 +49,16 @@ class Network:
             weights (list or None): List of weight matrices for each layer or None for initialization.
             biases (list or None): List of bias vectors for each layer or None for initialization.
         """
-        self.shared_layer.weights = weights[0]
-        self.shared_layer.biases = biases[0]
-        self.policy_head.weights = weights[1]
-        self.policy_head.biases = biases[1]
-        self.value_head.weights = weights[2]
-        self.value_head.biases = biases[2]
-        self.layers.append(self.shared_layer)
+        self.shared_layer1.weights = weights[0]
+        self.shared_layer1.biases = biases[0]
+        self.shared_layer2.weights = weights[1]
+        self.shared_layer2.biases = biases[1]
+        self.policy_head.weights = weights[2]
+        self.policy_head.biases = biases[2]
+        self.value_head.weights = weights[3]
+        self.value_head.biases = biases[3]
+        self.layers.append(self.shared_layer1)
+        self.layers.append(self.shared_layer2)
         self.layers.append(self.policy_head)
         self.layers.append(self.value_head)
 
@@ -210,16 +214,17 @@ class Network:
             input (numpy.ndarray): Input data.
             training (bool): Whether in training mode (affects dropout).
         """
-        hidden = self.shared_layer.forward(input, training)
+        hidden1 = self.shared_layer1.forward(input, training)
+        hidden2 = self.shared_layer2.forward(hidden1, training)
 
-        policy_output = self.policy_head.forward(hidden, training)
+        policy_output = self.policy_head.forward(hidden2, training)
 
         # Softmax
         shift = policy_output - np.max(policy_output, axis=1, keepdims=True)
         exps = np.exp(shift)
         policy_probs = exps / np.sum(exps, axis=1, keepdims=True)
 
-        value_output = self.value_head.forward(hidden, training)
+        value_output = self.value_head.forward(hidden2, training)
         value_pred = np.tanh(value_output)
 
         return policy_probs, value_pred
@@ -244,7 +249,8 @@ class Network:
 
         total_hidden_gradient = gradient_hiddend_policy + gradient_hiddend_val
 
-        current_gradient = self.shared_layer.backward(total_hidden_gradient, learning_rate, lambda_reg)
+        grad_layer1 = self.shared_layer2.backward(total_hidden_gradient, learning_rate, lambda_reg)
+        current_gradient = self.shared_layer1.backward(grad_layer1, learning_rate, lambda_reg)
         return current_gradient
 
     def _encode_string(self, s):
@@ -259,18 +265,23 @@ class Network:
 
     def save_for_cpp(self, filepath):
         """Exports weights in raw binary format matching C++ loadModel order:
-           1. Shared Weights (400x128)
-           2. Shared Biases (128)
-           3. Policy Weights (128x400)
-           4. Policy Biases (400)
-           5. Value Weights (128x1)
-           6. Value Biases (1)
+           1. Shared 1 Weights (800x512)
+           2. Shared 1 Biases (512)
+           3. Shared 2 Weights (512x256)
+           4. Shared 2 Biases (256)
+           5. Policy Weights (256x400)
+           6. Policy Biases (400)
+           7. Value Weights (256x1)
+           8. Value Biases (1)
         """
         try:
             with open(filepath, "wb") as f:
                 # 1. Shared Layer
-                f.write(self.shared_layer.weights.astype(np.float32).tobytes())
-                f.write(self.shared_layer.biases.astype(np.float32).tobytes())
+                f.write(self.shared_layer1.weights.astype(np.float32).tobytes())
+                f.write(self.shared_layer1.biases.astype(np.float32).tobytes())
+
+                f.write(self.shared_layer2.weights.astype(np.float32).tobytes())
+                f.write(self.shared_layer2.biases.astype(np.float32).tobytes())
 
                 # 2. Policy Head
                 f.write(self.policy_head.weights.astype(np.float32).tobytes())
