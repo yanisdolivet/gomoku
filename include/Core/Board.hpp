@@ -37,6 +37,8 @@ public:
 
   const std::bitset<AREA> &getOpponentBoard() const;
 
+  int getLastMoveIndex() const;
+
   std::bitset<AREA> getWinningCandidates(int player) const;
 
   std::bitset<AREA> getThreatCandidates(int player) const;

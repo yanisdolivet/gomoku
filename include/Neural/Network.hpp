@@ -43,13 +43,13 @@ class Network {
         Output predict(const Board &board);
 
     private:
-        Tensor _inputBuffer;        // Input tensor buffer (1, 800)
+        Tensor _inputBuffer;        // Input tensor buffer (1, 1200)
         Tensor _hidden1Buffer;      // First hidden layer output (1, 512)
         Tensor _hidden2Buffer;      // Second hidden layer output (1, 256)
         Tensor _policyLogitsBuffer; // Policy logits tensor buffer (1, 400)
         Tensor _valueOutBuffer;     // Value output tensor buffer (1, 1)
 
-        Tensor _weightsShared1;     // Weights for first shared layer (800, 512)
+        Tensor _weightsShared1;     // Weights for first shared layer (1200, 512)
         Tensor _biasesShared1;      // Biases for first shared layer (1, 512)
         Tensor _weightsShared2;     // Weights for second shared layer (512, 256)
         Tensor _biasesShared2;      // Biases for second shared layer (1, 256)

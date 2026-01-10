@@ -19,7 +19,7 @@ ERROR_CODE = 84
 class Network:
     """Neural Network class managing layers, training, and prediction."""
 
-    def __init__(self, input_size=800, shared_size1=512, shared_size2=256, output_size=400):
+    def __init__(self, input_size=1200, shared_size1=512, shared_size2=256, output_size=400):
         self.shared_layer1 = Layer(input_size, shared_size1, "relu", dropout_rate=0.2)
         self.shared_layer2 = Layer(shared_size1, shared_size2, "relu", dropout_rate=0.2)
         self.policy_head = Layer(shared_size2, output_size, "linear", dropout_rate=0.2)

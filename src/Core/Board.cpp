@@ -127,6 +127,15 @@ int Board::checkWinner() const {
  */
 const std::bitset<AREA> &Board::getMyBoard() const { return _myBoard; }
 
+int Board::getLastMoveIndex() const {
+  for (int i = AREA - 1; i >= 0; --i) {
+    if (_myBoard.test(i) || _opponentBoard.test(i)) {
+      return i;
+    }
+  }
+  return -1; // No moves made yet
+}
+
 /**
  * @brief Get opponent's board bitset
  *

@@ -11,9 +11,9 @@
  * @brief Construct a new Network:: Network object
  */
 Network::Network()
-    : _inputBuffer(1, 800), _hidden1Buffer(1, 512), _hidden2Buffer(1, 256),
+    : _inputBuffer(1, 1200), _hidden1Buffer(1, 512), _hidden2Buffer(1, 256),
       _policyLogitsBuffer(1, 400), _valueOutBuffer(1, 1),
-      _weightsShared1(800, 512), _biasesShared1(1, 512),
+      _weightsShared1(1200, 512), _biasesShared1(1, 512),
       _weightsShared2(512, 256), _biasesShared2(1, 256),
       _weightsPolicy(256, 400), _biasesPolicy(1, 400),
       _weightsValue(256, 1), _biasesValue(1, 1) {
@@ -144,6 +144,7 @@ Output Network::predict(const Board &board) {
   const auto &myBoard = board.getMyBoard();
   const auto &opponentBoard = board.getOpponentBoard();
   float *inputData = _inputBuffer.values.data();
+  int lastMoveIdx = board.getLastMoveIndex();
 
   for (int n = 0; n < 400; ++n) {
     bool isMe = myBoard.test(n);
@@ -151,6 +152,8 @@ Output Network::predict(const Board &board) {
 
     inputData[n]       = isMe ? 1.0f : 0.0f; // First Channel
     inputData[n + 400] = isOp ? 1.0f : 0.0f; // Second Channel
+
+    inputData[n + 800] = (n == lastMoveIdx) ? 1.0f : 0.0f; // Third Channel
   }
 
   denseLayer(_inputBuffer, _weightsShared1, _biasesShared1, _hidden1Buffer);
