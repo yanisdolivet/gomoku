@@ -22,7 +22,7 @@ Parser::Parser() {
   _commandHandlers["ABOUT"] = &Parser::AboutCommand;
   _commandHandlers["RESTART"] = &Parser::RestartCommand;
 
-  if (!_network.loadModel("assets/gomoku_model.nn")) {
+  if (!_network.loadModel("gomoku_model.nn")) {
     Logger::addLogGlobal("Failed to load neural network model");
   } else {
     Logger::addLogGlobal("Neural network model loaded successfully");
@@ -175,26 +175,26 @@ void Parser::BoardCommand(std::stringstream &args) {
       line.pop_back();
 
     if (line == "DONE") {
-        MCTS mcts(_network);
+      MCTS mcts(_network);
 
-        int dynamicTime = _timeLeft / 20;
-        int turnLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
-        int timeLimit = std::min(turnLimit, dynamicTime);
+      int dynamicTime = _timeLeft / 20;
+      int turnLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
+      int timeLimit = std::min(turnLimit, dynamicTime);
 
-        if (timeLimit > 200)
-          timeLimit -= 200;
-        if (timeLimit < 100)
-          timeLimit = 100;
-        if (timeLimit > _timeLeft - 200)
-          timeLimit = std::max(0, _timeLeft - 200);
+      if (timeLimit > 200)
+        timeLimit -= 200;
+      if (timeLimit < 100)
+        timeLimit = 100;
+      if (timeLimit > _timeLeft - 200)
+        timeLimit = std::max(0, _timeLeft - 200);
 
-        std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit);
+      std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit);
 
-        _gameBoard.makeMove(bestMove.first, bestMove.second, 2);
+      _gameBoard.makeMove(bestMove.first, bestMove.second, 2);
 
-        std::cout << bestMove.first << "," << bestMove.second << std::endl;
-        Logger::addLogGlobal("AI played: " + std::to_string(bestMove.first) +
-                             "," + std::to_string(bestMove.second));
+      std::cout << bestMove.first << "," << bestMove.second << std::endl;
+      Logger::addLogGlobal("AI played: " + std::to_string(bestMove.first) +
+                           "," + std::to_string(bestMove.second));
       return;
     }
     std::stringstream ssline(line);

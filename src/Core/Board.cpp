@@ -16,6 +16,7 @@ Board::Board() {
   _LeftMask.set();
   _RightMask.set();
   _FullMask.set();
+  _lastMoveIndex = -1;
 
   for (int i = 0; i < SIZE; ++i) {
     _LeftMask.reset(i * SIZE);
@@ -30,6 +31,7 @@ Board::Board() {
 void Board::resetBoard() {
   _myBoard.reset();
   _opponentBoard.reset();
+  _lastMoveIndex = -1;
 }
 
 /**
@@ -70,6 +72,7 @@ bool Board::makeMove(int x, int y, int player) {
   } else if (player == 2) {
     _opponentBoard.set(index);
   }
+  _lastMoveIndex = index;
   return true;
 }
 
@@ -127,6 +130,8 @@ int Board::checkWinner() const {
  */
 const std::bitset<AREA> &Board::getMyBoard() const { return _myBoard; }
 
+int Board::getLastMoveIndex() const { return _lastMoveIndex; }
+
 /**
  * @brief Get opponent's board bitset
  *
@@ -151,7 +156,7 @@ std::bitset<AREA> Board::getWinningCandidates(int player) const {
 
   auto shift = [&](std::bitset<AREA> b, int dist, int dir) {
     if (dir == 1) {
-        // Shift the bitset in the horizontal direction
+      // Shift the bitset in the horizontal direction
       if (dist > 0) {
         // Shift left
         for (int k = 0; k < dist; ++k)
@@ -180,7 +185,7 @@ std::bitset<AREA> Board::getWinningCandidates(int player) const {
         for (int k = 0; k < -dist; ++k)
           b = (b & _LeftMask) >> (SIZE + 1);
     } else if (dir == SIZE - 1) {
-        // Shift the bitset in the diagonal (top-left to bottom-right) direction
+      // Shift the bitset in the diagonal (top-left to bottom-right) direction
       if (dist > 0)
         // Shift up-right
         for (int k = 0; k < dist; ++k)
@@ -221,7 +226,8 @@ std::bitset<AREA> Board::getWinningCandidates(int player) const {
  * @param player Player number (1 or 2)
  * @return std::bitset<AREA> Bitset of threat move candidates
  * @note A threat move candidate is a position that, if played by the player,
- * would create a four-in-a-row, setting up for a potential win on the next turn.
+ * would create a four-in-a-row, setting up for a potential win on the next
+ * turn.
  */
 std::bitset<AREA> Board::getThreatCandidates(int player) const {
   const std::bitset<AREA> &p = (player == 1) ? _myBoard : _opponentBoard;

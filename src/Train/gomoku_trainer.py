@@ -48,7 +48,7 @@ def main():
         Y_policy_train, Y_policy_val = Y_policy[:split], Y_policy[split:]
         Y_value_train, Y_value_val = Y_value[:split], Y_value[split:]
 
-        input_size = 800
+        input_size = 1200
         shared_size1 = 512
         shared_size2 = 256
         policy_size = 400

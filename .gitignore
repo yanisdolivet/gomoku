@@ -1,3 +1,7 @@
+# Script
+sample_moves.txt
+visualize_moves.py
+
 #Python file
 *.pyc
 __pycache__/
