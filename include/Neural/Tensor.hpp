@@ -16,56 +16,37 @@
  */
 
 struct Tensor {
-    std::vector<float> values; // 400 value for 20x20 board
-    int rows; // number of rows
-    int cols; // number of columns
+  std::vector<float> values;
+  int rows;
+  int cols;
+  int channels;
+  int num;
 
-    /**
-     * @brief Default constructor for Tensor
-     */
-    Tensor(): rows(0), cols(0) {}
+  Tensor() : rows(0), cols(0), channels(1), num(1) {}
 
-    /**
-     * @brief Parameterized constructor for Tensor
-     * @param r Number of rows
-     * @param c Number of columns
-     */
-    Tensor(int r, int c) : rows(r), cols(c) {
-        values.resize(r * c, 0.0f);
-    }
+  Tensor(int r, int c) : rows(r), cols(c), channels(1), num(1) {
+    values.resize(r * c, 0.0f);
+  }
 
-    /**
-     * @brief Overloaded subscript operator for accessing tensor elements
-     * @param index Index of the element
-     * @return Reference to the element at the specified index
-     */
-    inline float &operator[](int index) {
-        return values[index];
-    }
+  Tensor(int n, int ch, int r, int c) : rows(r), cols(c), channels(ch), num(n) {
+    values.resize(n * ch * r * c, 0.0f);
+  }
 
-    /**
-     * @brief Overloaded subscript operator for accessing tensor elements (const version)
-     * @param index Index of the element
-     * @return Const reference to the element at the specified index
-     */
-    inline const float &operator[](int index) const {
-        return values[index];
-    }
+  inline float &operator[](int index) { return values[index]; }
 
-    /**
-     * @brief Method to access tensor elements using row and column indices
-     * @param r Row index
-     * @param c Column index
-     * @return Reference to the element at the specified row and column
-     */
-    inline float &at(int r, int c) {
-        return values[r * cols + c];
-    }
+  inline const float &operator[](int index) const { return values[index]; }
 
-    /**
-     * @brief Method to know size of the tensor
-     */
-    inline int size() const {
-        return values.size();
-    }
+  inline float &at(int r, int c) { return values[r * cols + c]; }
+
+  inline const float &at(int r, int c) const { return values[r * cols + c]; }
+
+  inline float &at(int n, int ch, int r, int c) {
+    return values[((n * channels + ch) * rows + r) * cols + c];
+  }
+
+  inline const float &at(int n, int ch, int r, int c) const {
+    return values[((n * channels + ch) * rows + r) * cols + c];
+  }
+
+  inline int size() const { return values.size(); }
 };

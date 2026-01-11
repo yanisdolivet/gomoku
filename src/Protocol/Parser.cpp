@@ -10,7 +10,7 @@
 /**
  * @brief Construct a new Parser:: Parser object
  */
-Parser::Parser() {
+Parser::Parser() : _mcts(_network) {
   _isRunning = true;
 
   _commandHandlers["START"] = &Parser::StartCommand;
@@ -22,10 +22,23 @@ Parser::Parser() {
   _commandHandlers["ABOUT"] = &Parser::AboutCommand;
   _commandHandlers["RESTART"] = &Parser::RestartCommand;
 
-  if (!_network.loadModel("gomoku_model.nn")) {
-    Logger::addLogGlobal("Failed to load neural network model");
-  } else {
-    Logger::addLogGlobal("Neural network model loaded successfully");
+  const std::vector<std::string> paths = {
+      "gomoku_model.bin", "assets/gomoku_model.bin", "../gomoku_model.bin",
+      "../assets/gomoku_model.bin"};
+
+  bool loaded = false;
+  for (const auto &path : paths) {
+    if (_network.loadModel(path)) {
+      Logger::addLogGlobal("Neural network model loaded successfully from: " +
+                           path);
+      loaded = true;
+      break;
+    }
+  }
+
+  if (!loaded) {
+    Logger::addLogGlobal(
+        "CRITICAL: Failed to load neural network model from any known path.");
   }
 }
 
@@ -88,9 +101,9 @@ void Parser::StartCommand(std::stringstream &args) {
   }
   _gameBoard.resetBoard();
   Logger::addLogGlobal("MCTS: Doing Warm-up during START phase...");
+  _mcts.reset();
   Board dummyBoard;
-  MCTS mcts(_network);
-  mcts.findBestMove(dummyBoard, 100);
+  _mcts.findBestMove(dummyBoard, 100);
   Logger::addLogGlobal("MCTS: Warm-up completed.");
   Logger::addLogGlobal("Game started with board size: " + std::to_string(size));
   std::cout << "OK" << std::endl;
@@ -130,8 +143,6 @@ void Parser::TurnCommand(std::stringstream &args) {
       return;
     }
   }
-  MCTS mcts(_network);
-
   int dynamicTime = _timeLeft / 20;
   int turnLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
   int timeLimit = std::min(turnLimit, dynamicTime);
@@ -143,8 +154,15 @@ void Parser::TurnCommand(std::stringstream &args) {
   if (timeLimit > _timeLeft - 200)
     timeLimit = std::max(0, _timeLeft - 200);
 
-  std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit);
+  int lastMoveIdx = _gameBoard.getLastMoveIndex();
+  _mcts.updateRoot(lastMoveIdx);
+
+  std::pair<int, int> bestMove = _mcts.findBestMove(_gameBoard, timeLimit);
   _gameBoard.makeMove(bestMove.first, bestMove.second, 1);
+
+  int myMoveIdx = bestMove.second * SIZE + bestMove.first;
+  _mcts.updateRoot(myMoveIdx);
+
   std::cout << bestMove.first << "," << bestMove.second << std::endl;
 
   Logger::addLogGlobal("AI played: " + std::to_string(bestMove.first) + "," +
@@ -155,9 +173,13 @@ void Parser::TurnCommand(std::stringstream &args) {
  * @brief Handle the BEGIN command to start the game as the first player
  */
 void Parser::BeginCommand([[maybe_unused]] std::stringstream &args) {
-  MCTS mcts(_network);
-  std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, 1000);
+  _mcts.reset();
+  std::pair<int, int> bestMove = _mcts.findBestMove(_gameBoard, 1000);
   _gameBoard.makeMove(bestMove.first, bestMove.second, 1);
+
+  int myMoveIdx = bestMove.second * SIZE + bestMove.first;
+  _mcts.updateRoot(myMoveIdx);
+
   std::cout << bestMove.first << "," << bestMove.second << std::endl;
 }
 
@@ -175,7 +197,7 @@ void Parser::BoardCommand(std::stringstream &args) {
       line.pop_back();
 
     if (line == "DONE") {
-      MCTS mcts(_network);
+      _mcts.reset();
 
       int dynamicTime = _timeLeft / 20;
       int turnLimit = (_timeoutTurn > 0) ? _timeoutTurn : 5000;
@@ -188,9 +210,11 @@ void Parser::BoardCommand(std::stringstream &args) {
       if (timeLimit > _timeLeft - 200)
         timeLimit = std::max(0, _timeLeft - 200);
 
-      std::pair<int, int> bestMove = mcts.findBestMove(_gameBoard, timeLimit);
+      std::pair<int, int> bestMove = _mcts.findBestMove(_gameBoard, timeLimit);
 
       _gameBoard.makeMove(bestMove.first, bestMove.second, 2);
+      int myMoveIdx = bestMove.second * SIZE + bestMove.first;
+      _mcts.updateRoot(myMoveIdx);
 
       std::cout << bestMove.first << "," << bestMove.second << std::endl;
       Logger::addLogGlobal("AI played: " + std::to_string(bestMove.first) +
@@ -307,6 +331,7 @@ void Parser::AboutCommand([[maybe_unused]] std::stringstream &args) {
  */
 void Parser::RestartCommand([[maybe_unused]] std::stringstream &args) {
   _gameBoard.resetBoard();
+  _mcts.reset();
   Logger::addLogGlobal("Game restarted by RESTART command");
   std::cout << "OK" << std::endl;
 }

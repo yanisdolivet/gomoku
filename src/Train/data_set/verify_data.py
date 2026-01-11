@@ -13,8 +13,8 @@ def verify_dataset(X_data):
     """
     print(f"Checking dataset with {len(X_data)} samples...")
 
-    if X_data.shape[1] != 1200:
-        raise ValueError(f"CRITICAL: Input shape is {X_data.shape}, expected (N, 1200).")
+    if X_data.shape[1] != 2000:
+        raise ValueError(f"CRITICAL: Input shape is {X_data.shape}, expected (N, 2000).")
 
     # unique_values = np.unique(X_data)
     # print(f"Unique values in input: {unique_values}")
