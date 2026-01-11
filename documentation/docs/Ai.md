@@ -1,6 +1,6 @@
 ---
 id: Ai
-title: The Brain: Oracle & Investigator
+title: "The Brain: Oracle & Investigator"
 sidebar_position: 2
 ---
 

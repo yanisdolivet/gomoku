@@ -1,7 +1,7 @@
 ---
 id: Training
 title: The Machine Learning Pipeline
-sidebar_position: 2
+sidebar_position: 4
 ---
 
 # The Machine Learning Pipeline

@@ -17,6 +17,7 @@ const sidebars = {
     'Introduction',
     'Ai',
     'Optimisation',
+    'Training',
     'Ci-cd',
     'Doxygen',
   ],

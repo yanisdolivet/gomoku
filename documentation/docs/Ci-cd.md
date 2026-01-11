@@ -1,7 +1,7 @@
 ---
 id: Ci-cd
 title: Continuous Integration & Deployment
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Continuous Integration & Deployment (CI/CD)
