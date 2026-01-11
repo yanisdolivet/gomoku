@@ -207,7 +207,7 @@ Node *MCTS::select(Node *node, Board &board) {
  * and generate prior probabilities for possible moves.
  */
 void MCTS::expand(Node *node, const Board &board) {
-  Output NeuralOutput = _network.predict(board);
+  Output NeuralOutput = _network.predict(board, node->player);
   float resultValue = NeuralOutput.value;
   int nextPlayer = (node->player == 1) ? 2 : 1;
   const auto &myBoard = board.getMyBoard();

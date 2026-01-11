@@ -145,28 +145,49 @@ bool Network::loadModel(const std::string &modelPath) {
  * @param board The board state to predict the next move for
  * @return Output The predicted move and its probability
  */
-Output Network::predict(const Board &board) {
+Output Network::predict(const Board &board, int currentPlayer) {
   if (_backbone.empty()) {
     return {{}, 0.0f};
   }
 
   std::fill(_inputTensor.values.begin(), _inputTensor.values.end(), 0.0f);
-  const auto &myBoard = board.getMyBoard();
-  const auto &opBoard = board.getOpponentBoard();
+
+  const auto &selfBoard =
+      (currentPlayer == 1) ? board.getMyBoard() : board.getOpponentBoard();
+  const auto &enemyBoard =
+      (currentPlayer == 1) ? board.getOpponentBoard() : board.getMyBoard();
+
+  int lastMoveIdx = board.getLastMoveIndex();
+
+  std::bitset<AREA> myThreats = board.getThreatCandidates(currentPlayer);
+  int enemyPlayer = (currentPlayer == 1) ? 2 : 1;
+  std::bitset<AREA> opThreats = board.getThreatCandidates(enemyPlayer);
 
   Tensor &input = _inputTensor;
 
   for (int y = 0; y < 20; ++y) {
     for (int x = 0; x < 20; ++x) {
       int idx = y * 20 + x;
-      if (myBoard.test(idx)) {
+
+      if (selfBoard.test(idx)) {
         input.at(0, 0, y, x) = 1.0f;
-      } else if (opBoard.test(idx)) {
+      }
+
+      if (enemyBoard.test(idx)) {
         input.at(0, 1, y, x) = 1.0f;
-      } else {
+      }
+
+      if (idx == lastMoveIdx) {
         input.at(0, 2, y, x) = 1.0f;
       }
-      input.at(0, 3, y, x) = 1.0f;
+
+      if (myThreats.test(idx)) {
+        input.at(0, 3, y, x) = 1.0f;
+      }
+
+      if (opThreats.test(idx)) {
+        input.at(0, 4, y, x) = 1.0f;
+      }
     }
   }
 

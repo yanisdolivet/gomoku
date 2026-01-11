@@ -44,7 +44,7 @@ public:
   ~Network();
 
   bool loadModel(const std::string &modelPath);
-  Output predict(const Board &board);
+  Output predict(const Board &board, int currentPlayer = 1);
 
 private:
   int _inputChannels;
