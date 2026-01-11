@@ -7,16 +7,15 @@
 
 #pragma once
 
-#include "../Core/Board.hpp"
-#include "../Engine/MCTS.hpp"
-#include "../Neural/Network.hpp"
-#include "../Utils/Logger.hpp"
+#include "Board.hpp"
+#include "Logger.hpp"
+#include "MCTS.hpp"
+#include "Network.hpp"
 
 #include <iostream>
 #include <map>
 #include <sstream>
 #include <string>
-#include <vector>
 
 /**
  * @brief Protocol Parser for Gomoku
@@ -45,6 +44,7 @@ private:
   Board _gameBoard;
   bool _isRunning;
   Network _network;
+  MCTS _mcts;
   int _timeoutTurn = 5000;
   int _timeLeft = 60000;
 

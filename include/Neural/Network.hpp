@@ -7,31 +7,36 @@
 
 #pragma once
 
-#include "../Core/Board.hpp"
-#include "../Utils/Logger.hpp"
+#include "Board.hpp"
+#include "Logger.hpp"
 #include "Tensor.hpp"
 
-#include <algorithm>
-#include <cmath>
 #include <fstream>
-#include <string>
 #include <vector>
 
-/**
- * @brief Output struct for Neural Network predictions
- * @note This struct holds the policy and value outputs from the neural network.
- */
 struct Output {
-  std::vector<float> policy; // Probability distribution over possible moves
+  std::vector<float> policy;
   float value;
 };
 
-/**
- * @brief Neural Network class for Gomoku
- * @note This class encapsulates the neural network used for decision making in
- * the Gomoku game. It is a interference motor. It contains the structure of the
- * network. It contains container for mathematical data (1D, 2D, 3D Matrix).
- */
+struct ConvLayer {
+  Tensor weights;
+  Tensor biases;
+};
+
+struct BNLayer {
+  Tensor gamma;
+  Tensor beta;
+  Tensor mean;
+  Tensor var;
+};
+
+struct ResBlock {
+  ConvLayer conv1;
+  BNLayer bn1;
+  ConvLayer conv2;
+  BNLayer bn2;
+};
 
 class Network {
 public:
@@ -39,26 +44,40 @@ public:
   ~Network();
 
   bool loadModel(const std::string &modelPath);
-  Output predict(const Board &board);
+  Output predict(const Board &board, int currentPlayer = 1);
 
 private:
-  Tensor _inputBuffer;        // Input tensor buffer (1, 2000)
-  Tensor _hidden1Buffer;      // First hidden layer output (1, 512)
-  Tensor _hidden2Buffer;      // Second hidden layer output (1, 256)
-  Tensor _policyLogitsBuffer; // Policy logits tensor buffer (1, 400)
-  Tensor _valueOutBuffer;     // Value output tensor buffer (1, 1)
+  int _inputChannels;
+  int _numResBlocks;
 
-  Tensor _weightsShared1; // Weights for first shared layer (2000, 512)
-  Tensor _biasesShared1;  // Biases for first shared layer (1, 512)
-  Tensor _weightsShared2; // Weights for second shared layer (512, 256)
-  Tensor _biasesShared2;  // Biases for second shared layer (1, 256)
-  Tensor _weightsPolicy;  // Weights for policy head (256, 400)
-  Tensor _biasesPolicy;   // Biases for policy head (1, 400)
-  Tensor _weightsValue;   // Weights for value head (256, 1)
-  Tensor _biasesValue;    // Biases for value head (1, 1)
+  ConvLayer _convInput;
+  BNLayer _bnInput;
+  std::vector<ResBlock> _backbone;
 
-  void denseLayer(const Tensor &input, const Tensor &weights,
-                  const Tensor &biases, Tensor &output);
+  ConvLayer _policyConv;
+  BNLayer _policyBN;
+
+  ConvLayer _valueConv;
+  BNLayer _valueBN;
+  ConvLayer _valueReduce;
+
+  Tensor _inputTensor;
+  Tensor _buffer1;
+  Tensor _buffer2;
+  Tensor _buffer3;
+  Tensor _policyConvOut;
+  Tensor _policyFlat;
+  Tensor _policyLogits;
+
+  Tensor _valueConvOut;
+  Tensor _valueFlat;
+  Tensor _valueHidden;
+  Tensor _valueRedOut;
+
+  void conv2d(const Tensor &input, const ConvLayer &layer, Tensor &output,
+              int stride = 1, int padding = 0);
+  void batchNorm(Tensor &input, const BNLayer &layer);
+  void add(Tensor &input, const Tensor &other);
   void relu(Tensor &tensor);
   void softmax(std::vector<float> &values);
 };
