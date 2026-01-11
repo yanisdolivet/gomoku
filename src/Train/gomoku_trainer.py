@@ -7,7 +7,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.Train.my_torch.NetworkTorch import NetworkTorch
+from src.Train.my_torch.Network import Network
 from src.Train.data_set.verify_data import verify_dataset
 from src.Train.PSQ_parser import PSQParser
 
@@ -46,7 +46,7 @@ def main():
         X_train, X_val = X_data[:split], X_data[split:]
         Y_policy_train, Y_policy_val = Y_policy[:split], Y_policy[split:]
         Y_value_train, Y_value_val = Y_value[:split], Y_value[split:]
-        network = NetworkTorch()
+        network = Network()
         
         network.train(
             NN_FILE,
