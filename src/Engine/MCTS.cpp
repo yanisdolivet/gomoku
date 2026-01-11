@@ -6,6 +6,8 @@
 */
 
 #include "MCTS.hpp"
+#include <algorithm>
+#include <chrono>
 
 /**
  * @brief Construct a new MCTS:: MCTS object
@@ -13,6 +15,59 @@
  * @param network Reference to the neural network for evaluations
  */
 MCTS::MCTS(Network &network) : _network(network) {}
+
+/**
+ * @brief Destroy the MCTS::MCTS object
+ */
+MCTS::~MCTS() {
+  if (_root) {
+    delete _root;
+  }
+}
+
+/**
+ * @brief Reset the MCTS tree
+ */
+void MCTS::reset() {
+  if (_root) {
+    delete _root;
+    _root = nullptr;
+  }
+}
+
+/**
+ * @brief Update the root of the MCTS tree with a new move
+ * @param moveIndex Index of the move to update the root with
+ * @note This function is called by the Parser when it's the bot's turn to play.
+ */
+void MCTS::updateRoot(int moveIndex) {
+  if (!_root)
+    return;
+
+  Node *newRoot = nullptr;
+  auto it = std::find_if(
+      _root->children.begin(), _root->children.end(),
+      [moveIndex](const Node *child) { return child->moveIndex == moveIndex; });
+
+  if (it != _root->children.end()) {
+    newRoot = *it;
+  }
+
+  if (newRoot) {
+    auto &children = _root->children;
+    children.erase(std::remove(children.begin(), children.end(), newRoot),
+                   children.end());
+
+    newRoot->parent = nullptr;
+    delete _root;
+    _root = newRoot;
+    Logger::addLogGlobal("MCTS: Tree improved! Reusing " +
+                         std::to_string(_root->visits) + " visits.");
+  } else {
+    Logger::addLogGlobal("MCTS: Move not in tree. resetting.");
+    reset();
+  }
+}
 
 /**
  * @brief Find the best move using MCTS
@@ -48,18 +103,37 @@ std::pair<int, int> MCTS::findBestMove(const Board &board, int timeMs) {
     return vcfLoss;
   }
 
-  Node *root = new Node(-1, 1.0f, rootPlayer, nullptr);
+  if (!_root) {
+    _root = new Node(-1, 1.0f, rootPlayer, nullptr);
+    expand(_root, board);
+  }
 
-  expand(root, board);
+  std::gamma_distribution<float> distribution(0.3f, 1.0f);
+  std::mt19937 gen(std::random_device{}());
+  float epsilon = 0.25f;
+
+  float sumNoise = 0.0f;
+  std::vector<float> noises;
+  for (size_t i = 0; i < _root->children.size(); ++i) {
+    float n = distribution(gen);
+    noises.push_back(n);
+    sumNoise += n;
+  }
+
+  for (size_t i = 0; i < _root->children.size(); ++i) {
+    _root->children[i]->priorProb =
+        (1 - epsilon) * _root->children[i]->priorProb +
+        epsilon * (noises[i] / sumNoise);
+  }
+
+  Node *root = _root;
   while (true) {
-    if ((iterations & 15) == 0) {
-      auto now = std::chrono::high_resolution_clock::now();
-      auto elapsed =
-          std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
-              .count();
-      if (elapsed >= timeout)
-        break;
-    }
+    auto now = std::chrono::high_resolution_clock::now();
+    auto elapsed =
+        std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
+            .count();
+    if (elapsed >= timeout)
+      break;
     iterations++;
 
     Board simBoard = board;
@@ -88,7 +162,6 @@ std::pair<int, int> MCTS::findBestMove(const Board &board, int timeMs) {
     int moveIndex = bestChild->moveIndex;
     bestMove = {moveIndex % SIZE, moveIndex / SIZE};
   }
-  delete root;
   return bestMove;
 }
 
@@ -134,7 +207,7 @@ Node *MCTS::select(Node *node, Board &board) {
  * and generate prior probabilities for possible moves.
  */
 void MCTS::expand(Node *node, const Board &board) {
-  Output NeuralOutput = _network.predict(board);
+  Output NeuralOutput = _network.predict(board, node->player);
   float resultValue = NeuralOutput.value;
   int nextPlayer = (node->player == 1) ? 2 : 1;
   const auto &myBoard = board.getMyBoard();

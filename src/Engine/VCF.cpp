@@ -6,7 +6,6 @@
 */
 
 #include "VCF.hpp"
-#include <iostream>
 
 /**
  * @brief Get the First Set Bit object

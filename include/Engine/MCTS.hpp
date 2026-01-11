@@ -7,13 +7,12 @@
 
 #pragma once
 
-#include "../Neural/Network.hpp"
+#include "Logger.hpp"
+#include "Network.hpp"
 #include "Node.hpp"
 #include "VCF.hpp"
 
-#include <chrono>
-#include <iostream>
-#include <limits>
+#include <random>
 #include <utility>
 
 #define DEFAULT_SECURITY_MS 350
@@ -26,12 +25,15 @@
 class MCTS {
 public:
   explicit MCTS(Network &network);
-  ~MCTS() = default;
+  ~MCTS();
 
   std::pair<int, int> findBestMove(const Board &board, int timeMs);
+  void reset();
+  void updateRoot(int moveIndex);
 
 private:
   Network &_network;
+  Node *_root = nullptr;
 
   Node *select(Node *node, Board &board);
   void expand(Node *node, const Board &board);

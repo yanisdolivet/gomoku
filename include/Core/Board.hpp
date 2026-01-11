@@ -37,6 +37,8 @@ public:
 
   const std::bitset<AREA> &getOpponentBoard() const;
 
+  int getLastMoveIndex() const;
+
   std::bitset<AREA> getWinningCandidates(int player) const;
 
   std::bitset<AREA> getThreatCandidates(int player) const;
@@ -51,4 +53,6 @@ private:
 
   bool fiveAligned(const std::bitset<AREA> &board, int shift,
                    const std::bitset<AREA> &mask) const;
+
+  int _lastMoveIndex;
 };

@@ -7,10 +7,8 @@
 
 #pragma once
 
-#include "../Core/Board.hpp"
-#include <bitset>
+#include "Board.hpp"
 #include <utility>
-#include <vector>
 
 class VCF {
 public:
