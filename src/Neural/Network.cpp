@@ -6,6 +6,8 @@
 */
 
 #include "Network.hpp"
+#include <algorithm>
+#include <cmath>
 
 /**
  * @brief Construct a new Network:: Network object
