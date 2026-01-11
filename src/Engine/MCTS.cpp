@@ -43,11 +43,12 @@ void MCTS::updateRoot(int moveIndex) {
     return;
 
   Node *newRoot = nullptr;
-  for (Node *child : _root->children) {
-    if (child->moveIndex == moveIndex) {
-      newRoot = child;
-      break;
-    }
+  auto it = std::find_if(
+      _root->children.begin(), _root->children.end(),
+      [moveIndex](const Node *child) { return child->moveIndex == moveIndex; });
+
+  if (it != _root->children.end()) {
+    newRoot = *it;
   }
 
   if (newRoot) {
@@ -93,13 +94,6 @@ std::pair<int, int> MCTS::findBestMove(const Board &board, int timeMs) {
 
   int opponent = (rootPlayer == 1) ? 2 : 1;
   std::pair<int, int> vcfLoss = VCF::solve(board, opponent, 12);
-  if (vcfLoss.first != -1) {
-    Logger::addLogGlobal(
-        "VCF Defense needed at: " + std::to_string(vcfLoss.first) + ", " +
-        std::to_string(vcfLoss.second));
-    return vcfLoss;
-  }
-
   if (vcfLoss.first != -1) {
     Logger::addLogGlobal(
         "VCF Defense needed at: " + std::to_string(vcfLoss.first) + ", " +

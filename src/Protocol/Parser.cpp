@@ -27,13 +27,18 @@ Parser::Parser() : _mcts(_network) {
       "../assets/gomoku_model.bin"};
 
   bool loaded = false;
-  for (const auto &path : paths) {
-    if (_network.loadModel(path)) {
-      Logger::addLogGlobal("Neural network model loaded successfully from: " +
-                           path);
-      loaded = true;
-      break;
-    }
+  auto it =
+      std::find_if(paths.begin(), paths.end(), [this](const std::string &path) {
+        if (_network.loadModel(path)) {
+          Logger::addLogGlobal(
+              "Neural network model loaded successfully from: " + path);
+          return true;
+        }
+        return false;
+      });
+
+  if (it != paths.end()) {
+    loaded = true;
   }
 
   if (!loaded) {

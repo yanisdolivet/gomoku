@@ -10,7 +10,7 @@
 /**
  * @brief Construct a new Network:: Network object
  */
-Network::Network() {}
+Network::Network() : _inputChannels(0), _numResBlocks(0) {}
 
 /**
  * @brief Destroy the Network:: Network object
@@ -328,10 +328,9 @@ void Network::batchNorm(Tensor &input, const BNLayer &layer) {
  * @param tensor Input tensor
  */
 void Network::relu(Tensor &tensor) {
-  for (auto &v : tensor.values) {
-    if (v < 0.0f)
-      v = 0.0f;
-  }
+  std::replace_if(
+      tensor.values.begin(), tensor.values.end(),
+      [](float v) { return v < 0.0f; }, 0.0f);
 }
 
 /**
@@ -352,17 +351,13 @@ void Network::add(Tensor &input, const Tensor &other) {
  * @param values Input values
  */
 void Network::softmax(std::vector<float> &values) {
-  float maxVal = -1e9f;
-  for (float v : values)
-    if (v > maxVal)
-      maxVal = v;
+  float maxVal = *std::max_element(values.begin(), values.end());
 
   float sum = 0.0f;
   for (float &v : values) {
     v = std::exp(v - maxVal);
     sum += v;
   }
-  for (float &v : values) {
-    v /= sum;
-  }
+  std::transform(values.begin(), values.end(), values.begin(),
+                 [sum](float v) { return v / sum; });
 }
