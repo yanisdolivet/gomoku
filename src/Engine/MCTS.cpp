@@ -6,6 +6,8 @@
 */
 
 #include "MCTS.hpp"
+#include <algorithm>
+#include <chrono>
 
 /**
  * @brief Construct a new MCTS:: MCTS object
