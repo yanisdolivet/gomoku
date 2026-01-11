@@ -80,7 +80,7 @@ Once the Python model is trained, it lives in PyTorch's memory. We need to trans
 ### Why not ONNX or TorchScript?
 Standard export formats (ONNX, TorchScript) require huge runtime libraries (libtorch is ~500MB). We want our C++ engine to be lightweight and zero-dependency.
 
-### Custom Binary Format (`.nn`)
+### Custom Binary Format (`.bin`)
 We designed a minimalistic binary protocol. The Python script acts as a serializer:
 1.  **Header**: Writes a "Magic Number" (`0x5245534E` - "RESN") to verify file integrity.
 2.  **Metadata**: Writes architecture constants (Number of layers, Input channels).

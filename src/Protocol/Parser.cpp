@@ -6,6 +6,7 @@
 */
 
 #include "Parser.hpp"
+#include <algorithm>
 
 /**
  * @brief Construct a new Parser:: Parser object
