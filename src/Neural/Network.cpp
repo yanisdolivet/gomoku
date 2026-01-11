@@ -198,9 +198,6 @@ Output Network::predict(const Board &board) {
 
   softmax(_policyLogits.values);
 
-  // DEBUG: Print top 3 probabilities to see what the network thinks
-  float maxP = -1.0f;
-  int bestIdx = -1;
   float sumP = 0.0f;
   std::vector<std::pair<float, int>> topMoves;
   for (int i = 0; i < 400; ++i) {
@@ -210,7 +207,7 @@ Output Network::predict(const Board &board) {
   }
   std::sort(topMoves.rbegin(), topMoves.rend());
 
-  if (topMoves[0].first > 0.1f) { // Only log if somewhat confident
+  if (topMoves[0].first > 0.1f) {
     std::string logMsg = "Network Top 3: ";
     for (int k = 0; k < 3; ++k) {
       int idx = topMoves[k].second;
