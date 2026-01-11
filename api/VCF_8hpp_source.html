@@ -90,23 +90,21 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;../Core/Board.hpp&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;bitset&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classVCF.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="classVCF.html">VCF</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">static</span> std::pair&lt;int, int&gt; <a class="code hl_function" href="classVCF.html#a44131bc2c152ee5734dc8e8eef1d3fe6">solve</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBoard.html">Board</a> &amp;board, <span class="keywordtype">int</span> player, <span class="keywordtype">int</span> depth);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">static</span> <span class="keywordtype">bool</span> vcf(<span class="keyword">const</span> <a class="code hl_class" href="classBoard.html">Board</a> &amp;board, <span class="keywordtype">int</span> player, <span class="keywordtype">int</span> depth, <span class="keywordtype">int</span> &amp;winningMove);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;Board.hpp&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classVCF.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="classVCF.html">VCF</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keyword">static</span> std::pair&lt;int, int&gt; <a class="code hl_function" href="classVCF.html#a44131bc2c152ee5734dc8e8eef1d3fe6">solve</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBoard.html">Board</a> &amp;board, <span class="keywordtype">int</span> player, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keyword">static</span> <span class="keywordtype">bool</span> vcf(<span class="keyword">const</span> <a class="code hl_class" href="classBoard.html">Board</a> &amp;board, <span class="keywordtype">int</span> player, <span class="keywordtype">int</span> depth, <span class="keywordtype">int</span> &amp;winningMove);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>};</div>
 </div>
 <div class="ttc" id="aclassBoard_html"><div class="ttname"><a href="classBoard.html">Board</a></div><div class="ttdoc">Represents the game board for Gomoku.</div><div class="ttdef"><b>Definition</b> Board.hpp:22</div></div>
-<div class="ttc" id="aclassVCF_html"><div class="ttname"><a href="classVCF.html">VCF</a></div><div class="ttdef"><b>Definition</b> VCF.hpp:15</div></div>
-<div class="ttc" id="aclassVCF_html_a44131bc2c152ee5734dc8e8eef1d3fe6"><div class="ttname"><a href="classVCF.html#a44131bc2c152ee5734dc8e8eef1d3fe6">VCF::solve</a></div><div class="ttdeci">static std::pair&lt; int, int &gt; solve(const Board &amp;board, int player, int depth)</div><div class="ttdoc">Find the best move using VCF.</div><div class="ttdef"><b>Definition</b> VCF.cpp:33</div></div>
+<div class="ttc" id="aclassVCF_html"><div class="ttname"><a href="classVCF.html">VCF</a></div><div class="ttdef"><b>Definition</b> VCF.hpp:13</div></div>
+<div class="ttc" id="aclassVCF_html_a44131bc2c152ee5734dc8e8eef1d3fe6"><div class="ttname"><a href="classVCF.html#a44131bc2c152ee5734dc8e8eef1d3fe6">VCF::solve</a></div><div class="ttdeci">static std::pair&lt; int, int &gt; solve(const Board &amp;board, int player, int depth)</div><div class="ttdoc">Find the best move using VCF.</div><div class="ttdef"><b>Definition</b> VCF.cpp:32</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

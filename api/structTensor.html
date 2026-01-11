@@ -84,25 +84,32 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4420e3cacf3811f54a0363db56d9379d" id="r_a4420e3cacf3811f54a0363db56d9379d"><td class="memItemLeft" align="right" valign="top"><a id="a4420e3cacf3811f54a0363db56d9379d" name="a4420e3cacf3811f54a0363db56d9379d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Tensor</b> ()</td></tr>
-<tr class="memdesc:a4420e3cacf3811f54a0363db56d9379d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor for <a class="el" href="structTensor.html" title="Tensor struct for multi-dimensional arrays.">Tensor</a>. <br /></td></tr>
-<tr class="separator:a4420e3cacf3811f54a0363db56d9379d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c7f4e00afd28f83b3e1e4baa4dc04dd" id="r_a6c7f4e00afd28f83b3e1e4baa4dc04dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTensor.html#a6c7f4e00afd28f83b3e1e4baa4dc04dd">Tensor</a> (int r, int c)</td></tr>
-<tr class="memdesc:a6c7f4e00afd28f83b3e1e4baa4dc04dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor for <a class="el" href="structTensor.html" title="Tensor struct for multi-dimensional arrays.">Tensor</a>.  <br /></td></tr>
+<tr class="memitem:a6c7f4e00afd28f83b3e1e4baa4dc04dd" id="r_a6c7f4e00afd28f83b3e1e4baa4dc04dd"><td class="memItemLeft" align="right" valign="top"><a id="a6c7f4e00afd28f83b3e1e4baa4dc04dd" name="a6c7f4e00afd28f83b3e1e4baa4dc04dd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Tensor</b> (int r, int c)</td></tr>
 <tr class="separator:a6c7f4e00afd28f83b3e1e4baa4dc04dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae18817b1a2df34cb76f6f314462bd63d" id="r_ae18817b1a2df34cb76f6f314462bd63d"><td class="memItemLeft" align="right" valign="top">float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTensor.html#ae18817b1a2df34cb76f6f314462bd63d">operator[]</a> (int index)</td></tr>
-<tr class="memdesc:ae18817b1a2df34cb76f6f314462bd63d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloaded subscript operator for accessing tensor elements.  <br /></td></tr>
+<tr class="memitem:affff10e96e27bc4059b4f56ce4c7972a" id="r_affff10e96e27bc4059b4f56ce4c7972a"><td class="memItemLeft" align="right" valign="top"><a id="affff10e96e27bc4059b4f56ce4c7972a" name="affff10e96e27bc4059b4f56ce4c7972a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Tensor</b> (int n, int ch, int r, int c)</td></tr>
+<tr class="separator:affff10e96e27bc4059b4f56ce4c7972a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18817b1a2df34cb76f6f314462bd63d" id="r_ae18817b1a2df34cb76f6f314462bd63d"><td class="memItemLeft" align="right" valign="top"><a id="ae18817b1a2df34cb76f6f314462bd63d" name="ae18817b1a2df34cb76f6f314462bd63d"></a>
+float &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int index)</td></tr>
 <tr class="separator:ae18817b1a2df34cb76f6f314462bd63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dad0dc33c6e998f6efbdb8bbd2695a0" id="r_a0dad0dc33c6e998f6efbdb8bbd2695a0"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTensor.html#a0dad0dc33c6e998f6efbdb8bbd2695a0">operator[]</a> (int index) const</td></tr>
-<tr class="memdesc:a0dad0dc33c6e998f6efbdb8bbd2695a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloaded subscript operator for accessing tensor elements (const version)  <br /></td></tr>
+<tr class="memitem:a0dad0dc33c6e998f6efbdb8bbd2695a0" id="r_a0dad0dc33c6e998f6efbdb8bbd2695a0"><td class="memItemLeft" align="right" valign="top"><a id="a0dad0dc33c6e998f6efbdb8bbd2695a0" name="a0dad0dc33c6e998f6efbdb8bbd2695a0"></a>
+const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int index) const</td></tr>
 <tr class="separator:a0dad0dc33c6e998f6efbdb8bbd2695a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a363b89950ead2efc258aa0b6c5d82205" id="r_a363b89950ead2efc258aa0b6c5d82205"><td class="memItemLeft" align="right" valign="top">float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTensor.html#a363b89950ead2efc258aa0b6c5d82205">at</a> (int r, int c)</td></tr>
-<tr class="memdesc:a363b89950ead2efc258aa0b6c5d82205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to access tensor elements using row and column indices.  <br /></td></tr>
+<tr class="memitem:a363b89950ead2efc258aa0b6c5d82205" id="r_a363b89950ead2efc258aa0b6c5d82205"><td class="memItemLeft" align="right" valign="top"><a id="a363b89950ead2efc258aa0b6c5d82205" name="a363b89950ead2efc258aa0b6c5d82205"></a>
+float &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>at</b> (int r, int c)</td></tr>
 <tr class="separator:a363b89950ead2efc258aa0b6c5d82205"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be71d572363cb7a1ee3e66aac041e89" id="r_a2be71d572363cb7a1ee3e66aac041e89"><td class="memItemLeft" align="right" valign="top"><a id="a2be71d572363cb7a1ee3e66aac041e89" name="a2be71d572363cb7a1ee3e66aac041e89"></a>
+const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>at</b> (int r, int c) const</td></tr>
+<tr class="separator:a2be71d572363cb7a1ee3e66aac041e89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8868c9bcda9d43b2918e218dc50bed8c" id="r_a8868c9bcda9d43b2918e218dc50bed8c"><td class="memItemLeft" align="right" valign="top"><a id="a8868c9bcda9d43b2918e218dc50bed8c" name="a8868c9bcda9d43b2918e218dc50bed8c"></a>
+float &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>at</b> (int n, int ch, int r, int c)</td></tr>
+<tr class="separator:a8868c9bcda9d43b2918e218dc50bed8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af824ba6fd4db2c5d236757f0c6829e" id="r_a4af824ba6fd4db2c5d236757f0c6829e"><td class="memItemLeft" align="right" valign="top"><a id="a4af824ba6fd4db2c5d236757f0c6829e" name="a4af824ba6fd4db2c5d236757f0c6829e"></a>
+const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>at</b> (int n, int ch, int r, int c) const</td></tr>
+<tr class="separator:a4af824ba6fd4db2c5d236757f0c6829e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b9956e3f3bb0409e35fdeefc745f13f" id="r_a4b9956e3f3bb0409e35fdeefc745f13f"><td class="memItemLeft" align="right" valign="top"><a id="a4b9956e3f3bb0409e35fdeefc745f13f" name="a4b9956e3f3bb0409e35fdeefc745f13f"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
-<tr class="memdesc:a4b9956e3f3bb0409e35fdeefc745f13f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to know size of the tensor. <br /></td></tr>
 <tr class="separator:a4b9956e3f3bb0409e35fdeefc745f13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -116,174 +123,17 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>rows</b></td></tr>
 <tr class="memitem:ad390aced9687d5c3ccc5fc3d34d47646" id="r_ad390aced9687d5c3ccc5fc3d34d47646"><td class="memItemLeft" align="right" valign="top"><a id="ad390aced9687d5c3ccc5fc3d34d47646" name="ad390aced9687d5c3ccc5fc3d34d47646"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>cols</b></td></tr>
 <tr class="separator:ad390aced9687d5c3ccc5fc3d34d47646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad514507b11bacd1d4b502207841b30b2" id="r_ad514507b11bacd1d4b502207841b30b2"><td class="memItemLeft" align="right" valign="top"><a id="ad514507b11bacd1d4b502207841b30b2" name="ad514507b11bacd1d4b502207841b30b2"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>channels</b></td></tr>
+<tr class="separator:ad514507b11bacd1d4b502207841b30b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a544b429b2534ab6687838acb1e4ce15c" id="r_a544b429b2534ab6687838acb1e4ce15c"><td class="memItemLeft" align="right" valign="top"><a id="a544b429b2534ab6687838acb1e4ce15c" name="a544b429b2534ab6687838acb1e4ce15c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>num</b></td></tr>
+<tr class="separator:a544b429b2534ab6687838acb1e4ce15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structTensor.html" title="Tensor struct for multi-dimensional arrays.">Tensor</a> struct for multi-dimensional arrays. </p>
 <dl class="section note"><dt>Note</dt><dd>This struct encapsulates the properties and methods for handling multi-dimensional arrays (tensors) used in neural network computations. </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6c7f4e00afd28f83b3e1e4baa4dc04dd" name="a6c7f4e00afd28f83b3e1e4baa4dc04dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c7f4e00afd28f83b3e1e4baa4dc04dd">&#9670;&#160;</a></span>Tensor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Tensor::Tensor </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>c</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Parameterized constructor for <a class="el" href="structTensor.html" title="Tensor struct for multi-dimensional arrays.">Tensor</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r</td><td>Number of rows </td></tr>
-    <tr><td class="paramname">c</td><td>Number of columns </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a363b89950ead2efc258aa0b6c5d82205" name="a363b89950ead2efc258aa0b6c5d82205"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a363b89950ead2efc258aa0b6c5d82205">&#9670;&#160;</a></span>at()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float &amp; Tensor::at </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>c</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Method to access tensor elements using row and column indices. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r</td><td>Row index </td></tr>
-    <tr><td class="paramname">c</td><td>Column index </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the element at the specified row and column </dd></dl>
-
-</div>
-</div>
-<a id="ae18817b1a2df34cb76f6f314462bd63d" name="ae18817b1a2df34cb76f6f314462bd63d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae18817b1a2df34cb76f6f314462bd63d">&#9670;&#160;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float &amp; Tensor::operator[] </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overloaded subscript operator for accessing tensor elements. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Index of the element </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the element at the specified index </dd></dl>
-
-</div>
-</div>
-<a id="a0dad0dc33c6e998f6efbdb8bbd2695a0" name="a0dad0dc33c6e998f6efbdb8bbd2695a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dad0dc33c6e998f6efbdb8bbd2695a0">&#9670;&#160;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const float &amp; Tensor::operator[] </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overloaded subscript operator for accessing tensor elements (const version) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Index of the element </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Const reference to the element at the specified index </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/Neural/<a class="el" href="Tensor_8hpp_source.html">Tensor.hpp</a></li>
 </ul>
 </div><!-- contents -->

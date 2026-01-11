@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger_0',['Logger',['../classLogger.html',1,'']]]
+  ['convlayer_0',['ConvLayer',['../structConvLayer.html',1,'']]]
 ];

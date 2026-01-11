@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['parser_0',['Parser',['../classParser.html#a12234f6cd36b61af4b50c94a179422c1',1,'Parser']]],
-  ['predict_1',['predict',['../classNetwork.html#a2e883480a847b32a2150e3a87d28bac5',1,'Network']]]
+  ['reset_0',['reset',['../classMCTS.html#a707ea9f5f1f7a36b621423b20074c03c',1,'MCTS']]],
+  ['resetboard_1',['resetBoard',['../classBoard.html#a7cef7a9ca499d64c71cb170d67f76ad0',1,'Board']]],
+  ['restartcommand_2',['RestartCommand',['../classParser.html#a20b5500268f1dd09f5d67397ca7f1ed2',1,'Parser']]],
+  ['runparser_3',['runParser',['../classParser.html#a64bd10d37efdf796cf24ad0328579ad8',1,'Parser']]]
 ];

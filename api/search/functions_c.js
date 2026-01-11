@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['resetboard_0',['resetBoard',['../classBoard.html#a7cef7a9ca499d64c71cb170d67f76ad0',1,'Board']]],
-  ['restartcommand_1',['RestartCommand',['../classParser.html#a20b5500268f1dd09f5d67397ca7f1ed2',1,'Parser']]],
-  ['runparser_2',['runParser',['../classParser.html#a64bd10d37efdf796cf24ad0328579ad8',1,'Parser']]]
+  ['solve_0',['solve',['../classVCF.html#a44131bc2c152ee5734dc8e8eef1d3fe6',1,'VCF']]],
+  ['startcommand_1',['StartCommand',['../classParser.html#ae11283bd5c09e1bac3562333dd16f598',1,'Parser']]]
 ];

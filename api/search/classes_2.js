@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mcts_0',['MCTS',['../classMCTS.html',1,'']]]
+  ['logger_0',['Logger',['../classLogger.html',1,'']]]
 ];

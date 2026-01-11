@@ -94,50 +94,42 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structTensor.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structTensor.html">Tensor</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::vector&lt;float&gt; values; <span class="comment">// 400 value for 20x20 board</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">int</span> rows; <span class="comment">// number of rows</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">int</span> cols; <span class="comment">// number of columns</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structTensor.html#a4420e3cacf3811f54a0363db56d9379d">   26</a></span>    <a class="code hl_function" href="structTensor.html#a4420e3cacf3811f54a0363db56d9379d">Tensor</a>(): rows(0), cols(0) {}</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structTensor.html#a6c7f4e00afd28f83b3e1e4baa4dc04dd">   33</a></span>    <a class="code hl_function" href="structTensor.html#a6c7f4e00afd28f83b3e1e4baa4dc04dd">Tensor</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c) : rows(r), cols(c) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        values.resize(r * c, 0.0f);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  std::vector&lt;float&gt; values;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordtype">int</span> rows;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keywordtype">int</span> cols;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">int</span> channels;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">int</span> num;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a>() : rows(0), cols(0), channels(1), num(1) {}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c) : rows(r), cols(c), channels(1), num(1) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    values.resize(r * c, 0.0f);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a>(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> ch, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c) : rows(r), cols(c), channels(ch), num(n) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    values.resize(n * ch * r * c, 0.0f);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keyword">inline</span> <span class="keywordtype">float</span> &amp;operator[](<span class="keywordtype">int</span> index) { <span class="keywordflow">return</span> values[index]; }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structTensor.html#ae18817b1a2df34cb76f6f314462bd63d">   42</a></span>    <span class="keyword">inline</span> <span class="keywordtype">float</span> &amp;<a class="code hl_function" href="structTensor.html#ae18817b1a2df34cb76f6f314462bd63d">operator[]</a>(<span class="keywordtype">int</span> index) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> values[index];</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
-</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structTensor.html#a0dad0dc33c6e998f6efbdb8bbd2695a0">   51</a></span>    <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;<a class="code hl_function" href="structTensor.html#a0dad0dc33c6e998f6efbdb8bbd2695a0">operator[]</a>(<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">return</span> values[index];</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
-</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structTensor.html#a363b89950ead2efc258aa0b6c5d82205">   61</a></span>    <span class="keyword">inline</span> <span class="keywordtype">float</span> &amp;<a class="code hl_function" href="structTensor.html#a363b89950ead2efc258aa0b6c5d82205">at</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> values[r * cols + c];</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
-</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structTensor.html#a4b9956e3f3bb0409e35fdeefc745f13f">   68</a></span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="structTensor.html#a4b9956e3f3bb0409e35fdeefc745f13f">size</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> values.size();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
-</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;operator[](<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> values[index]; }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="keyword">inline</span> <span class="keywordtype">float</span> &amp;at(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c) { <span class="keywordflow">return</span> values[r * cols + c]; }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;at(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> values[r * cols + c]; }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">inline</span> <span class="keywordtype">float</span> &amp;at(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> ch, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> values[((n * channels + ch) * rows + r) * cols + c];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">float</span> &amp;at(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> ch, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> values[((n * channels + ch) * rows + r) * cols + c];</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keyword">inline</span> <span class="keywordtype">int</span> size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> values.size(); }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
 </div>
 <div class="ttc" id="astructTensor_html"><div class="ttname"><a href="structTensor.html">Tensor</a></div><div class="ttdoc">Tensor struct for multi-dimensional arrays.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:18</div></div>
-<div class="ttc" id="astructTensor_html_a0dad0dc33c6e998f6efbdb8bbd2695a0"><div class="ttname"><a href="structTensor.html#a0dad0dc33c6e998f6efbdb8bbd2695a0">Tensor::operator[]</a></div><div class="ttdeci">const float &amp; operator[](int index) const</div><div class="ttdoc">Overloaded subscript operator for accessing tensor elements (const version)</div><div class="ttdef"><b>Definition</b> Tensor.hpp:51</div></div>
-<div class="ttc" id="astructTensor_html_a363b89950ead2efc258aa0b6c5d82205"><div class="ttname"><a href="structTensor.html#a363b89950ead2efc258aa0b6c5d82205">Tensor::at</a></div><div class="ttdeci">float &amp; at(int r, int c)</div><div class="ttdoc">Method to access tensor elements using row and column indices.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:61</div></div>
-<div class="ttc" id="astructTensor_html_a4420e3cacf3811f54a0363db56d9379d"><div class="ttname"><a href="structTensor.html#a4420e3cacf3811f54a0363db56d9379d">Tensor::Tensor</a></div><div class="ttdeci">Tensor()</div><div class="ttdoc">Default constructor for Tensor.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:26</div></div>
-<div class="ttc" id="astructTensor_html_a4b9956e3f3bb0409e35fdeefc745f13f"><div class="ttname"><a href="structTensor.html#a4b9956e3f3bb0409e35fdeefc745f13f">Tensor::size</a></div><div class="ttdeci">int size() const</div><div class="ttdoc">Method to know size of the tensor.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:68</div></div>
-<div class="ttc" id="astructTensor_html_a6c7f4e00afd28f83b3e1e4baa4dc04dd"><div class="ttname"><a href="structTensor.html#a6c7f4e00afd28f83b3e1e4baa4dc04dd">Tensor::Tensor</a></div><div class="ttdeci">Tensor(int r, int c)</div><div class="ttdoc">Parameterized constructor for Tensor.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:33</div></div>
-<div class="ttc" id="astructTensor_html_ae18817b1a2df34cb76f6f314462bd63d"><div class="ttname"><a href="structTensor.html#ae18817b1a2df34cb76f6f314462bd63d">Tensor::operator[]</a></div><div class="ttdeci">float &amp; operator[](int index)</div><div class="ttdoc">Overloaded subscript operator for accessing tensor elements.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:42</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

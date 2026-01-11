@@ -75,32 +75,56 @@ $(function() {
   <div class="headertitle"><div class="title">Network Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Neural <a class="el" href="classNetwork.html" title="Neural Network class for Gomoku.">Network</a> class for Gomoku.  
- <a href="classNetwork.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="Network_8hpp_source.html">Network.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3cc2fb4f8fa4d507077e8da85ce5a1c8" id="r_a3cc2fb4f8fa4d507077e8da85ce5a1c8"><td class="memItemLeft" align="right" valign="top"><a id="a3cc2fb4f8fa4d507077e8da85ce5a1c8" name="a3cc2fb4f8fa4d507077e8da85ce5a1c8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Network</b> ()</td></tr>
-<tr class="memdesc:a3cc2fb4f8fa4d507077e8da85ce5a1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classNetwork.html" title="Neural Network class for Gomoku.">Network</a>:: <a class="el" href="classNetwork.html" title="Neural Network class for Gomoku.">Network</a> object. <br /></td></tr>
+<tr class="memdesc:a3cc2fb4f8fa4d507077e8da85ce5a1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classNetwork.html">Network</a>:: <a class="el" href="classNetwork.html">Network</a> object. <br /></td></tr>
 <tr class="separator:a3cc2fb4f8fa4d507077e8da85ce5a1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ef93549e96665a2f575fb99a542eecd" id="r_a2ef93549e96665a2f575fb99a542eecd"><td class="memItemLeft" align="right" valign="top"><a id="a2ef93549e96665a2f575fb99a542eecd" name="a2ef93549e96665a2f575fb99a542eecd"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadModel</b> (const std::string &amp;modelPath)</td></tr>
-<tr class="memdesc:a2ef93549e96665a2f575fb99a542eecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">load a model from file <br /></td></tr>
+<tr class="memitem:a7a4e19cdb4bf0c7ecf82baa643831492" id="r_a7a4e19cdb4bf0c7ecf82baa643831492"><td class="memItemLeft" align="right" valign="top"><a id="a7a4e19cdb4bf0c7ecf82baa643831492" name="a7a4e19cdb4bf0c7ecf82baa643831492"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~Network</b> ()</td></tr>
+<tr class="memdesc:a7a4e19cdb4bf0c7ecf82baa643831492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="classNetwork.html">Network</a>:: <a class="el" href="classNetwork.html">Network</a> object. <br /></td></tr>
+<tr class="separator:a7a4e19cdb4bf0c7ecf82baa643831492"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ef93549e96665a2f575fb99a542eecd" id="r_a2ef93549e96665a2f575fb99a542eecd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNetwork.html#a2ef93549e96665a2f575fb99a542eecd">loadModel</a> (const std::string &amp;modelPath)</td></tr>
+<tr class="memdesc:a2ef93549e96665a2f575fb99a542eecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a model from a file.  <br /></td></tr>
 <tr class="separator:a2ef93549e96665a2f575fb99a542eecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e883480a847b32a2150e3a87d28bac5" id="r_a2e883480a847b32a2150e3a87d28bac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structOutput.html">Output</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNetwork.html#a2e883480a847b32a2150e3a87d28bac5">predict</a> (const <a class="el" href="classBoard.html">Board</a> &amp;board)</td></tr>
-<tr class="memdesc:a2e883480a847b32a2150e3a87d28bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict the output given an input.  <br /></td></tr>
-<tr class="separator:a2e883480a847b32a2150e3a87d28bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0e2522be9cf962db13d909c39d05b65" id="r_ae0e2522be9cf962db13d909c39d05b65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structOutput.html">Output</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNetwork.html#ae0e2522be9cf962db13d909c39d05b65">predict</a> (const <a class="el" href="classBoard.html">Board</a> &amp;board, int currentPlayer=1)</td></tr>
+<tr class="memdesc:ae0e2522be9cf962db13d909c39d05b65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict the next move for a given board state.  <br /></td></tr>
+<tr class="separator:ae0e2522be9cf962db13d909c39d05b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Neural <a class="el" href="classNetwork.html" title="Neural Network class for Gomoku.">Network</a> class for Gomoku. </p>
-<dl class="section note"><dt>Note</dt><dd>This class encapsulates the neural network used for decision making in the Gomoku game. It is a interference motor. It contains the structure of the network. It contains container for mathematical data (1D, 2D, 3D Matrix). </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2e883480a847b32a2150e3a87d28bac5" name="a2e883480a847b32a2150e3a87d28bac5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e883480a847b32a2150e3a87d28bac5">&#9670;&#160;</a></span>predict()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2ef93549e96665a2f575fb99a542eecd" name="a2ef93549e96665a2f575fb99a542eecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef93549e96665a2f575fb99a542eecd">&#9670;&#160;</a></span>loadModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Network::loadModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelPath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load a model from a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelPath</td><td>Path to the model file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the model was loaded successfully </dd>
+<dd>
+false if the model could not be loaded </dd></dl>
+
+</div>
+</div>
+<a id="ae0e2522be9cf962db13d909c39d05b65" name="ae0e2522be9cf962db13d909c39d05b65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0e2522be9cf962db13d909c39d05b65">&#9670;&#160;</a></span>predict()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -109,21 +133,30 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadModel</b> (const 
           <td class="memname"><a class="el" href="structOutput.html">Output</a> Network::predict </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classBoard.html">Board</a> &amp;&#160;</td>
-          <td class="paramname"><em>board</em></td><td>)</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentPlayer</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Predict the output given an input. </p>
+<p>Predict the next move for a given board state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">board</td><td>Input board state </td></tr>
+    <tr><td class="paramname">board</td><td>The board state to predict the next move for </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structOutput.html" title="Output struct for Neural Network predictions.">Output</a> struct containing policy and value </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This method performs a forward pass through the network to generate predictions based on the input data. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structOutput.html">Output</a> The predicted move and its probability </dd></dl>
 
 </div>
 </div>

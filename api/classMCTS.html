@@ -86,9 +86,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a84a76487f2297f8feff9bc81d3ed1cfc" id="r_a84a76487f2297f8feff9bc81d3ed1cfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMCTS.html#a84a76487f2297f8feff9bc81d3ed1cfc">MCTS</a> (<a class="el" href="classNetwork.html">Network</a> &amp;network)</td></tr>
 <tr class="memdesc:a84a76487f2297f8feff9bc81d3ed1cfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classMCTS.html" title="Monte Carlo Tree Search Engine for Gomoku.">MCTS</a>:: <a class="el" href="classMCTS.html" title="Monte Carlo Tree Search Engine for Gomoku.">MCTS</a> object.  <br /></td></tr>
 <tr class="separator:a84a76487f2297f8feff9bc81d3ed1cfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d35cc57e9c40a670fe81a299fb490d4" id="r_a0d35cc57e9c40a670fe81a299fb490d4"><td class="memItemLeft" align="right" valign="top"><a id="a0d35cc57e9c40a670fe81a299fb490d4" name="a0d35cc57e9c40a670fe81a299fb490d4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~MCTS</b> ()</td></tr>
+<tr class="memdesc:a0d35cc57e9c40a670fe81a299fb490d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="classMCTS.html#a84a76487f2297f8feff9bc81d3ed1cfc" title="Construct a new MCTS:: MCTS object.">MCTS::MCTS</a> object. <br /></td></tr>
+<tr class="separator:a0d35cc57e9c40a670fe81a299fb490d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9eda3875a834d185500b33d87f992f32" id="r_a9eda3875a834d185500b33d87f992f32"><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMCTS.html#a9eda3875a834d185500b33d87f992f32">findBestMove</a> (const <a class="el" href="classBoard.html">Board</a> &amp;board, int timeMs)</td></tr>
 <tr class="memdesc:a9eda3875a834d185500b33d87f992f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the best move using <a class="el" href="classMCTS.html" title="Monte Carlo Tree Search Engine for Gomoku.">MCTS</a>.  <br /></td></tr>
 <tr class="separator:a9eda3875a834d185500b33d87f992f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a707ea9f5f1f7a36b621423b20074c03c" id="r_a707ea9f5f1f7a36b621423b20074c03c"><td class="memItemLeft" align="right" valign="top"><a id="a707ea9f5f1f7a36b621423b20074c03c" name="a707ea9f5f1f7a36b621423b20074c03c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr>
+<tr class="memdesc:a707ea9f5f1f7a36b621423b20074c03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the <a class="el" href="classMCTS.html" title="Monte Carlo Tree Search Engine for Gomoku.">MCTS</a> tree. <br /></td></tr>
+<tr class="separator:a707ea9f5f1f7a36b621423b20074c03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a422ce85ea40dc371595e52ce86c1f00b" id="r_a422ce85ea40dc371595e52ce86c1f00b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMCTS.html#a422ce85ea40dc371595e52ce86c1f00b">updateRoot</a> (int moveIndex)</td></tr>
+<tr class="memdesc:a422ce85ea40dc371595e52ce86c1f00b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the root of the <a class="el" href="classMCTS.html" title="Monte Carlo Tree Search Engine for Gomoku.">MCTS</a> tree with a new move.  <br /></td></tr>
+<tr class="separator:a422ce85ea40dc371595e52ce86c1f00b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Monte Carlo Tree Search Engine for Gomoku. </p>
@@ -165,6 +176,33 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt;int, int&gt; Best move coordinates (x, y)</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function is call by the <a class="el" href="classParser.html" title="Protocol Parser for Gomoku.">Parser</a> when it's the bot's turn to play. </dd></dl>
+
+</div>
+</div>
+<a id="a422ce85ea40dc371595e52ce86c1f00b" name="a422ce85ea40dc371595e52ce86c1f00b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a422ce85ea40dc371595e52ce86c1f00b">&#9670;&#160;</a></span>updateRoot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MCTS::updateRoot </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>moveIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the root of the <a class="el" href="classMCTS.html" title="Monte Carlo Tree Search Engine for Gomoku.">MCTS</a> tree with a new move. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">moveIndex</td><td>Index of the move to update the root with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is called by the <a class="el" href="classParser.html" title="Protocol Parser for Gomoku.">Parser</a> when it's the bot's turn to play. </dd></dl>
 
 </div>
 </div>

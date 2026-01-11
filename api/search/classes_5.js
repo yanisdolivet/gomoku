@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parser_0',['Parser',['../classParser.html',1,'']]]
+  ['output_0',['Output',['../structOutput.html',1,'']]]
 ];

@@ -90,60 +90,100 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;../Core/Board.hpp&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;../Utils/Logger.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;Board.hpp&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;Logger.hpp&quot;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Tensor.hpp&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structOutput.html">   24</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structOutput.html">Output</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  std::vector&lt;float&gt; policy; <span class="comment">// Probability distribution over possible moves</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keywordtype">float</span> value;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structOutput.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structOutput.html">Output</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  std::vector&lt;float&gt; policy;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keywordtype">float</span> value;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
 </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classNetwork.html">   36</a></span><span class="keyword">class </span><a class="code hl_class" href="classNetwork.html">Network</a> {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_function" href="classNetwork.html#a3cc2fb4f8fa4d507077e8da85ce5a1c8">Network</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <a class="code hl_class" href="classNetwork.html">~Network</a>();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structConvLayer.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> weights;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> biases;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structBNLayer.html">   27</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structBNLayer.html">BNLayer</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> gamma;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> beta;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> mean;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> var;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structResBlock.html">   34</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structResBlock.html">ResBlock</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> conv1;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <a class="code hl_struct" href="structBNLayer.html">BNLayer</a> bn1;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> conv2;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_struct" href="structBNLayer.html">BNLayer</a> bn2;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>};</div>
+</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="classNetwork.html#a2ef93549e96665a2f575fb99a542eecd">loadModel</a>(<span class="keyword">const</span> std::string &amp;modelPath);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <a class="code hl_struct" href="structOutput.html">Output</a> <a class="code hl_function" href="classNetwork.html#a2e883480a847b32a2150e3a87d28bac5">predict</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBoard.html">Board</a> &amp;board);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _inputBuffer;        <span class="comment">// Input tensor buffer (1, 2000)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _hidden1Buffer;      <span class="comment">// First hidden layer output (1, 512)</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _hidden2Buffer;      <span class="comment">// Second hidden layer output (1, 256)</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _policyLogitsBuffer; <span class="comment">// Policy logits tensor buffer (1, 400)</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _valueOutBuffer;     <span class="comment">// Value output tensor buffer (1, 1)</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _weightsShared1; <span class="comment">// Weights for first shared layer (2000, 512)</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _biasesShared1;  <span class="comment">// Biases for first shared layer (1, 512)</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _weightsShared2; <span class="comment">// Weights for second shared layer (512, 256)</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _biasesShared2;  <span class="comment">// Biases for second shared layer (1, 256)</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _weightsPolicy;  <span class="comment">// Weights for policy head (256, 400)</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _biasesPolicy;   <span class="comment">// Biases for policy head (1, 400)</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _weightsValue;   <span class="comment">// Weights for value head (256, 1)</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _biasesValue;    <span class="comment">// Biases for value head (1, 1)</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classNetwork.html">   41</a></span><span class="keyword">class </span><a class="code hl_class" href="classNetwork.html">Network</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <a class="code hl_function" href="classNetwork.html#a3cc2fb4f8fa4d507077e8da85ce5a1c8">Network</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <a class="code hl_function" href="classNetwork.html#a7a4e19cdb4bf0c7ecf82baa643831492">~Network</a>();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="classNetwork.html#a2ef93549e96665a2f575fb99a542eecd">loadModel</a>(<span class="keyword">const</span> std::string &amp;modelPath);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <a class="code hl_struct" href="structOutput.html">Output</a> <a class="code hl_function" href="classNetwork.html#ae0e2522be9cf962db13d909c39d05b65">predict</a>(<span class="keyword">const</span> <a class="code hl_class" href="classBoard.html">Board</a> &amp;board, <span class="keywordtype">int</span> currentPlayer = 1);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keywordtype">int</span> _inputChannels;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keywordtype">int</span> _numResBlocks;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> _convInput;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <a class="code hl_struct" href="structBNLayer.html">BNLayer</a> _bnInput;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  std::vector&lt;ResBlock&gt; _backbone;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> _policyConv;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <a class="code hl_struct" href="structBNLayer.html">BNLayer</a> _policyBN;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordtype">void</span> denseLayer(<span class="keyword">const</span> <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;input, <span class="keyword">const</span> <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;weights,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                  <span class="keyword">const</span> <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;biases, <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;output);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">void</span> relu(<a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;tensor);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordtype">void</span> softmax(std::vector&lt;float&gt; &amp;values);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> _valueConv;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <a class="code hl_struct" href="structBNLayer.html">BNLayer</a> _valueBN;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> _valueReduce;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _inputTensor;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _buffer1;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _buffer2;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _buffer3;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _policyConvOut;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _policyFlat;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _policyLogits;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _valueConvOut;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _valueFlat;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _valueHidden;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <a class="code hl_struct" href="structTensor.html">Tensor</a> _valueRedOut;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keywordtype">void</span> conv2d(<span class="keyword">const</span> <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;input, <span class="keyword">const</span> <a class="code hl_struct" href="structConvLayer.html">ConvLayer</a> &amp;layer, <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;output,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>              <span class="keywordtype">int</span> stride = 1, <span class="keywordtype">int</span> padding = 0);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordtype">void</span> batchNorm(<a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;input, <span class="keyword">const</span> <a class="code hl_struct" href="structBNLayer.html">BNLayer</a> &amp;layer);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordtype">void</span> add(<a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;input, <span class="keyword">const</span> <a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;other);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keywordtype">void</span> relu(<a class="code hl_struct" href="structTensor.html">Tensor</a> &amp;tensor);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <span class="keywordtype">void</span> softmax(std::vector&lt;float&gt; &amp;values);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
 </div>
 <div class="ttc" id="aclassBoard_html"><div class="ttname"><a href="classBoard.html">Board</a></div><div class="ttdoc">Represents the game board for Gomoku.</div><div class="ttdef"><b>Definition</b> Board.hpp:22</div></div>
-<div class="ttc" id="aclassNetwork_html"><div class="ttname"><a href="classNetwork.html">Network</a></div><div class="ttdoc">Neural Network class for Gomoku.</div><div class="ttdef"><b>Definition</b> Network.hpp:36</div></div>
-<div class="ttc" id="aclassNetwork_html_a2e883480a847b32a2150e3a87d28bac5"><div class="ttname"><a href="classNetwork.html#a2e883480a847b32a2150e3a87d28bac5">Network::predict</a></div><div class="ttdeci">Output predict(const Board &amp;board)</div><div class="ttdoc">Predict the output given an input.</div><div class="ttdef"><b>Definition</b> Network.cpp:143</div></div>
-<div class="ttc" id="aclassNetwork_html_a2ef93549e96665a2f575fb99a542eecd"><div class="ttname"><a href="classNetwork.html#a2ef93549e96665a2f575fb99a542eecd">Network::loadModel</a></div><div class="ttdeci">bool loadModel(const std::string &amp;modelPath)</div><div class="ttdoc">load a model from file</div><div class="ttdef"><b>Definition</b> Network.cpp:36</div></div>
-<div class="ttc" id="aclassNetwork_html_a3cc2fb4f8fa4d507077e8da85ce5a1c8"><div class="ttname"><a href="classNetwork.html#a3cc2fb4f8fa4d507077e8da85ce5a1c8">Network::Network</a></div><div class="ttdeci">Network()</div><div class="ttdoc">Construct a new Network:: Network object.</div><div class="ttdef"><b>Definition</b> Network.cpp:13</div></div>
-<div class="ttc" id="astructOutput_html"><div class="ttname"><a href="structOutput.html">Output</a></div><div class="ttdoc">Output struct for Neural Network predictions.</div><div class="ttdef"><b>Definition</b> Network.hpp:24</div></div>
+<div class="ttc" id="aclassNetwork_html"><div class="ttname"><a href="classNetwork.html">Network</a></div><div class="ttdef"><b>Definition</b> Network.hpp:41</div></div>
+<div class="ttc" id="aclassNetwork_html_a2ef93549e96665a2f575fb99a542eecd"><div class="ttname"><a href="classNetwork.html#a2ef93549e96665a2f575fb99a542eecd">Network::loadModel</a></div><div class="ttdeci">bool loadModel(const std::string &amp;modelPath)</div><div class="ttdoc">Load a model from a file.</div><div class="ttdef"><b>Definition</b> Network.cpp:60</div></div>
+<div class="ttc" id="aclassNetwork_html_a3cc2fb4f8fa4d507077e8da85ce5a1c8"><div class="ttname"><a href="classNetwork.html#a3cc2fb4f8fa4d507077e8da85ce5a1c8">Network::Network</a></div><div class="ttdeci">Network()</div><div class="ttdoc">Construct a new Network:: Network object.</div><div class="ttdef"><b>Definition</b> Network.cpp:15</div></div>
+<div class="ttc" id="aclassNetwork_html_a7a4e19cdb4bf0c7ecf82baa643831492"><div class="ttname"><a href="classNetwork.html#a7a4e19cdb4bf0c7ecf82baa643831492">Network::~Network</a></div><div class="ttdeci">~Network()</div><div class="ttdoc">Destroy the Network:: Network object.</div><div class="ttdef"><b>Definition</b> Network.cpp:20</div></div>
+<div class="ttc" id="aclassNetwork_html_ae0e2522be9cf962db13d909c39d05b65"><div class="ttname"><a href="classNetwork.html#ae0e2522be9cf962db13d909c39d05b65">Network::predict</a></div><div class="ttdeci">Output predict(const Board &amp;board, int currentPlayer=1)</div><div class="ttdoc">Predict the next move for a given board state.</div><div class="ttdef"><b>Definition</b> Network.cpp:148</div></div>
+<div class="ttc" id="astructBNLayer_html"><div class="ttname"><a href="structBNLayer.html">BNLayer</a></div><div class="ttdef"><b>Definition</b> Network.hpp:27</div></div>
+<div class="ttc" id="astructConvLayer_html"><div class="ttname"><a href="structConvLayer.html">ConvLayer</a></div><div class="ttdef"><b>Definition</b> Network.hpp:22</div></div>
+<div class="ttc" id="astructOutput_html"><div class="ttname"><a href="structOutput.html">Output</a></div><div class="ttdef"><b>Definition</b> Network.hpp:17</div></div>
+<div class="ttc" id="astructResBlock_html"><div class="ttname"><a href="structResBlock.html">ResBlock</a></div><div class="ttdef"><b>Definition</b> Network.hpp:34</div></div>
 <div class="ttc" id="astructTensor_html"><div class="ttname"><a href="structTensor.html">Tensor</a></div><div class="ttdoc">Tensor struct for multi-dimensional arrays.</div><div class="ttdef"><b>Definition</b> Tensor.hpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

@@ -90,54 +90,55 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structNode.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structNode.html">Node</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordtype">int</span> moveIndex;   <span class="comment">// Index of the move leading to this node</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keywordtype">int</span> visits;      <span class="comment">// Number of times this node has been visited</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">float</span> score;     <span class="comment">// Cumulative score of this node</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">float</span> priorProb; <span class="comment">// Prior probability of selecting this node</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">int</span> player;      <span class="comment">// Player to move at this node ( 1 or 2 )</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <a class="code hl_struct" href="structNode.html">Node</a> *parent;                 <span class="comment">// Pointer to the parent node</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  std::vector&lt;Node *&gt; children; <span class="comment">// Vector of child nodes</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structNode.html#afdc223de3bcfad4c079139050c21937c">   36</a></span>  <a class="code hl_function" href="structNode.html#afdc223de3bcfad4c079139050c21937c">Node</a>(<span class="keywordtype">int</span> moveIdx, <span class="keywordtype">float</span> prior, <span class="keywordtype">int</span> plyr, <a class="code hl_struct" href="structNode.html">Node</a> *par = <span class="keyword">nullptr</span>)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      : moveIndex(moveIdx), visits(0), score(0.0f), priorProb(prior),</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        player(plyr), parent(par) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    children.reserve(20);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  }</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structNode.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structNode.html">Node</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keywordtype">int</span> moveIndex;   <span class="comment">// Index of the move leading to this node</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">int</span> visits;      <span class="comment">// Number of times this node has been visited</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">float</span> score;     <span class="comment">// Cumulative score of this node</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">float</span> priorProb; <span class="comment">// Prior probability of selecting this node</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keywordtype">int</span> player;      <span class="comment">// Player to move at this node ( 1 or 2 )</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_struct" href="structNode.html">Node</a> *parent;                 <span class="comment">// Pointer to the parent node</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  std::vector&lt;Node *&gt; children; <span class="comment">// Vector of child nodes</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structNode.html#afdc223de3bcfad4c079139050c21937c">   37</a></span>  <a class="code hl_function" href="structNode.html#afdc223de3bcfad4c079139050c21937c">Node</a>(<span class="keywordtype">int</span> moveIdx, <span class="keywordtype">float</span> prior, <span class="keywordtype">int</span> plyr, <a class="code hl_struct" href="structNode.html">Node</a> *par = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      : moveIndex(moveIdx), visits(0), score(0.0f), priorProb(prior),</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        player(plyr), parent(par) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    children.reserve(20);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  }</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structNode.html#aa0840c3cb5c7159be6d992adecd2097c">   46</a></span>  <a class="code hl_function" href="structNode.html#aa0840c3cb5c7159be6d992adecd2097c">~Node</a>() {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (<a class="code hl_struct" href="structNode.html">Node</a> *child : children) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      <span class="keyword">delete</span> child;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structNode.html#aa0840c3cb5c7159be6d992adecd2097c">   47</a></span>  <a class="code hl_function" href="structNode.html#aa0840c3cb5c7159be6d992adecd2097c">~Node</a>() {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">for</span> (<a class="code hl_struct" href="structNode.html">Node</a> *child : children) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      <span class="keyword">delete</span> child;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  }</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structNode.html#a3e91a73bbd7105621ef75cf5e64a2eee">   58</a></span>  <span class="keywordtype">float</span> <a class="code hl_function" href="structNode.html#a3e91a73bbd7105621ef75cf5e64a2eee">getPUCT</a>(<span class="keywordtype">float</span> curiosity_factor = 1.0f)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> (visits == 0) {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>      <span class="keywordflow">return</span> priorProb;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">float</span> exploitation = (score / visits + 1.0f) / 2.0f;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">float</span> exploration = curiosity_factor * priorProb *</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                        std::sqrt(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(parent-&gt;visits)) /</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                        (1.0f + visits);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> exploitation + exploration;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structNode.html#a3e91a73bbd7105621ef75cf5e64a2eee">   59</a></span>  <span class="keywordtype">float</span> <a class="code hl_function" href="structNode.html#a3e91a73bbd7105621ef75cf5e64a2eee">getPUCT</a>(<span class="keywordtype">float</span> curiosity_factor = 1.0f)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (visits == 0) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      <span class="keywordflow">return</span> priorProb;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">float</span> exploitation = (score / visits + 1.0f) / 2.0f;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">float</span> exploration = curiosity_factor * priorProb *</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                        std::sqrt(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(parent-&gt;visits)) /</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                        (1.0f + visits);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> exploitation + exploration;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  }</div>
 </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>};</div>
 </div>
-<div class="ttc" id="astructNode_html"><div class="ttname"><a href="structNode.html">Node</a></div><div class="ttdoc">Node struct representing a state in the MCTS tree.</div><div class="ttdef"><b>Definition</b> Node.hpp:19</div></div>
-<div class="ttc" id="astructNode_html_a3e91a73bbd7105621ef75cf5e64a2eee"><div class="ttname"><a href="structNode.html#a3e91a73bbd7105621ef75cf5e64a2eee">Node::getPUCT</a></div><div class="ttdeci">float getPUCT(float curiosity_factor=1.0f) const</div><div class="ttdoc">Calculate the PUCT value for this node.</div><div class="ttdef"><b>Definition</b> Node.hpp:58</div></div>
-<div class="ttc" id="astructNode_html_aa0840c3cb5c7159be6d992adecd2097c"><div class="ttname"><a href="structNode.html#aa0840c3cb5c7159be6d992adecd2097c">Node::~Node</a></div><div class="ttdeci">~Node()</div><div class="ttdoc">Destructor to clean up child nodes.</div><div class="ttdef"><b>Definition</b> Node.hpp:46</div></div>
-<div class="ttc" id="astructNode_html_afdc223de3bcfad4c079139050c21937c"><div class="ttname"><a href="structNode.html#afdc223de3bcfad4c079139050c21937c">Node::Node</a></div><div class="ttdeci">Node(int moveIdx, float prior, int plyr, Node *par=nullptr)</div><div class="ttdoc">Construct a new Node object.</div><div class="ttdef"><b>Definition</b> Node.hpp:36</div></div>
+<div class="ttc" id="astructNode_html"><div class="ttname"><a href="structNode.html">Node</a></div><div class="ttdoc">Node struct representing a state in the MCTS tree.</div><div class="ttdef"><b>Definition</b> Node.hpp:20</div></div>
+<div class="ttc" id="astructNode_html_a3e91a73bbd7105621ef75cf5e64a2eee"><div class="ttname"><a href="structNode.html#a3e91a73bbd7105621ef75cf5e64a2eee">Node::getPUCT</a></div><div class="ttdeci">float getPUCT(float curiosity_factor=1.0f) const</div><div class="ttdoc">Calculate the PUCT value for this node.</div><div class="ttdef"><b>Definition</b> Node.hpp:59</div></div>
+<div class="ttc" id="astructNode_html_aa0840c3cb5c7159be6d992adecd2097c"><div class="ttname"><a href="structNode.html#aa0840c3cb5c7159be6d992adecd2097c">Node::~Node</a></div><div class="ttdeci">~Node()</div><div class="ttdoc">Destructor to clean up child nodes.</div><div class="ttdef"><b>Definition</b> Node.hpp:47</div></div>
+<div class="ttc" id="astructNode_html_afdc223de3bcfad4c079139050c21937c"><div class="ttname"><a href="structNode.html#afdc223de3bcfad4c079139050c21937c">Node::Node</a></div><div class="ttdeci">Node(int moveIdx, float prior, int plyr, Node *par=nullptr)</div><div class="ttdoc">Construct a new Node object.</div><div class="ttdef"><b>Definition</b> Node.hpp:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
